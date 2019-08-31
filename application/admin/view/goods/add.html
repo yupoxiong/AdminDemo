@@ -1,0 +1,260 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <!-- 表单头部 -->
+                <div class="box-header with-border">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fa fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+                <!-- 表单 -->
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
+                    <!-- 表单字段区域 -->
+                    <div class="box-body">
+                        <div class="form-group">
+    <label for="goods_category_id" class="col-sm-2 control-label">所属分类</label>
+    <div class="col-sm-10 col-md-4">
+        <select name="goods_category_id" id="goods_category_id" class="form-control field-select" data-placeholder="请选择所属分类">
+            <option value=""></option>
+            {foreach name='goods_category_list' id='item'}
+    <option value="{$item.id}" {if isset($data) && $data.goods_category_id==$item.id}selected{/if}>
+        {$item.name}
+    </option>
+{/foreach}
+        </select>
+    </div>
+</div>
+<script>
+ $('#goods_category_id').select2();
+</script>
+<div class="form-group">
+    <label for="brand_id" class="col-sm-2 control-label">品牌</label>
+    <div class="col-sm-10 col-md-4">
+        <select name="brand_id" id="brand_id" class="form-control field-select" data-placeholder="请选择品牌">
+            <option value=""></option>
+            {foreach name='brand_list' id='item'}
+    <option value="{$item.id}" {if isset($data) && $data.brand_id==$item.id}selected{/if}>
+        {$item.name}
+    </option>
+{/foreach}
+        </select>
+    </div>
+</div>
+<script>
+ $('#brand_id').select2();
+</script>
+<div class="form-group">
+    <label for="name" class="col-sm-2 control-label">名称</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入名称" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="origin_price" class="col-sm-2 control-label">原价</label>
+    <div class="col-sm-10 col-md-4">
+         <div class="input-group">
+            <input id="origin_price" name="origin_price" value="{$data.origin_price|default='0.00'}" placeholder="请输入原价" type="number" class="form-control field-number">
+        </div>
+    </div>
+</div>
+<script>
+    $('#origin_price')
+        .bootstrapNumber({
+            upClass: 'success',
+            downClass: 'primary',
+            center: true
+        });
+</script>
+<div class="form-group">
+    <label for="price" class="col-sm-2 control-label">售价</label>
+    <div class="col-sm-10 col-md-4">
+         <div class="input-group">
+            <input id="price" name="price" value="{$data.price|default='0.00'}" placeholder="请输入售价" type="number" class="form-control field-number">
+        </div>
+    </div>
+</div>
+<script>
+    $('#price')
+        .bootstrapNumber({
+            upClass: 'success',
+            downClass: 'primary',
+            center: true
+        });
+</script>
+<div class="form-group">
+    <label for="attr" class="col-sm-2 control-label">内容</label>
+        <div class="col-sm-10">
+            <script id="attr" name="attr" type="text/plain">{$data.attr|raw|default=''}</script>
+        </div>
+    </div>
+<script>
+    UE.delEditor('attr');
+    var UE_attr = UE.getEditor('attr',{
+        serverUrl :UEServer
+    });
+</script>
+<div class="form-group">
+    <label for="detail" class="col-sm-2 control-label">内容</label>
+        <div class="col-sm-10">
+            <script id="detail" name="detail" type="text/plain">{$data.detail|raw|default=''}</script>
+        </div>
+    </div>
+<script>
+    UE.delEditor('detail');
+    var UE_detail = UE.getEditor('detail',{
+        serverUrl :UEServer
+    });
+</script>
+<div class="form-group">
+    <label for="weight" class="col-sm-2 control-label">重量</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="weight" name="weight" value="{$data.weight|default='0.00'}" placeholder="请输入重量" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="stock" class="col-sm-2 control-label">库存</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="stock" name="stock" value="{$data.stock|default='0'}" placeholder="请输入库存" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="sort_number" class="col-sm-2 control-label">排序(升序</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="sort_number" name="sort_number" value="{$data.sort_number|default='1000'}" placeholder="请输入排序(升序" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="status" class="col-sm-2 control-label">是否上架</label>
+    <div class="col-sm-10 col-md-4">
+    <input class="input-switch"  id="status" value="1" {if(!isset($data) ||$data.status==1)}checked{/if} type="checkbox" />
+    <input class="switch field-switch" placeholder="是否上架" name="status" value="{$data.status|default='1'}" hidden />
+    </div>
+</div>
+
+<script>
+    $('#status').bootstrapSwitch({
+        onText: "是",
+        offText: "否",
+        onColor: "success",
+        offColor: "danger",
+        onSwitchChange: function (event, state) {
+            $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
+        }
+    });
+</script>
+                    </div>
+                    <!-- 表单底部 -->
+                    <div class="box-footer">
+                        {:token()}
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-10 col-md-4">
+                            {if !isset($data)}
+                                <div class="btn-group pull-right">
+                                    <label class="createContinue">
+                                        <input type="checkbox" value="1" id="_create" name="_create"
+                                                                   title="继续添加数据">继续添加</label>
+                                </div>
+                             {/if}
+                            <div class="btn-group">
+                                <button type="submit" class="btn flat btn-info dataFormSubmit">
+                                    保存
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="reset" class="btn flat btn-default dataFormReset">
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    /** 表单验证 **/
+    $('#dataForm').validate({
+        rules: {
+                'goods_category_id': {
+        required: true,
+    },
+    'brand_id': {
+        required: true,
+    },
+    'name': {
+        required: true,
+    },
+    'origin_price': {
+        required: true,
+    },
+    'price': {
+        required: true,
+    },
+    'attr': {
+        required: true,
+    },
+    'detail': {
+        required: true,
+    },
+    'weight': {
+        required: true,
+    },
+    'stock': {
+        required: true,
+    },
+    'sort_number': {
+        required: true,
+    },
+    'status': {
+        required: true,
+    },
+
+        },
+        messages: {
+                'goods_category_id': {
+        required: "所属分类不能为空",
+    },
+    'brand_id': {
+        required: "品牌不能为空",
+    },
+    'name': {
+        required: "名称不能为空",
+    },
+    'origin_price': {
+        required: "原价不能为空",
+    },
+    'price': {
+        required: "售价不能为空",
+    },
+    'attr': {
+        required: "规格不能为空",
+    },
+    'detail': {
+        required: "详情不能为空",
+    },
+    'weight': {
+        required: "重量不能为空",
+    },
+    'stock': {
+        required: "库存不能为空",
+    },
+    'sort_number': {
+        required: "排序(升序不能为空",
+    },
+    'status': {
+        required: "是否上架不能为空",
+    },
+
+        }
+    });
+</script>
+{/block}

@@ -1,0 +1,349 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <!-- 表单头部 -->
+                <div class="box-header with-border">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fa fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+                <!-- 表单 -->
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
+                    <!-- 表单字段区域 -->
+                    <div class="box-body">
+                        <div class="form-group">
+    <label for="order_no" class="col-sm-2 control-label">订单编号</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="order_no" name="order_no" value="{$data.order_no|default=''}" placeholder="请输入订单编号" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="user_id" class="col-sm-2 control-label">下单用户</label>
+    <div class="col-sm-10 col-md-4">
+        <select name="user_id" id="user_id" class="form-control field-select" data-placeholder="请选择下单用户">
+            <option value=""></option>
+            {foreach name='user_list' id='item'}
+    <option value="{$item.id}" {if isset($data) && $data.user_id==$item.id}selected{/if}>
+        {$item.nickname}
+    </option>
+{/foreach}
+        </select>
+    </div>
+</div>
+<script>
+ $('#user_id').select2();
+</script>
+<div class="form-group">
+    <label for="order_price" class="col-sm-2 control-label">订单金额</label>
+    <div class="col-sm-10 col-md-4">
+         <div class="input-group">
+            <input id="order_price" name="order_price" value="{$data.order_price|default='0.00'}" placeholder="请输入订单金额" type="number" class="form-control field-number">
+        </div>
+    </div>
+</div>
+<script>
+    $('#order_price')
+        .bootstrapNumber({
+            upClass: 'success',
+            downClass: 'primary',
+            center: true
+        });
+</script>
+<div class="form-group">
+    <label for="pay_price" class="col-sm-2 control-label">支付金额</label>
+    <div class="col-sm-10 col-md-4">
+         <div class="input-group">
+            <input id="pay_price" name="pay_price" value="{$data.pay_price|default='0.00'}" placeholder="请输入支付金额" type="number" class="form-control field-number">
+        </div>
+    </div>
+</div>
+<script>
+    $('#pay_price')
+        .bootstrapNumber({
+            upClass: 'success',
+            downClass: 'primary',
+            center: true
+        });
+</script>
+<div class="form-group">
+    <label for="goods_price" class="col-sm-2 control-label">商品总额</label>
+    <div class="col-sm-10 col-md-4">
+         <div class="input-group">
+            <input id="goods_price" name="goods_price" value="{$data.goods_price|default='0.00'}" placeholder="请输入商品总额" type="number" class="form-control field-number">
+        </div>
+    </div>
+</div>
+<script>
+    $('#goods_price')
+        .bootstrapNumber({
+            upClass: 'success',
+            downClass: 'primary',
+            center: true
+        });
+</script>
+<div class="form-group">
+    <label for="express_price" class="col-sm-2 control-label">运费</label>
+    <div class="col-sm-10 col-md-4">
+         <div class="input-group">
+            <input id="express_price" name="express_price" value="{$data.express_price|default='0.00'}" placeholder="请输入运费" type="number" class="form-control field-number">
+        </div>
+    </div>
+</div>
+<script>
+    $('#express_price')
+        .bootstrapNumber({
+            upClass: 'success',
+            downClass: 'primary',
+            center: true
+        });
+</script>
+<div class="form-group">
+    <label for="name" class="col-sm-2 control-label">姓名</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入姓名" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="mobile" class="col-sm-2 control-label">手机号</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="mobile" name="mobile" value="{$data.mobile|default=''}" placeholder="请输入手机号" type="tel" maxlength="11" class="form-control field-mobile">
+    </div>
+</div>
+<div class="form-group">
+    <label for="address" class="col-sm-2 control-label">收货地址</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="address" name="address" value="{$data.address|default=''}" placeholder="请输入收货地址" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="express_id" class="col-sm-2 control-label">快递公司</label>
+    <div class="col-sm-10 col-md-4">
+        <select name="express_id" id="express_id" class="form-control field-select" data-placeholder="请选择快递公司">
+            <option value=""></option>
+            {foreach name='express_list' id='item'}
+    <option value="{$item.id}" {if isset($data) && $data.express_id==$item.id}selected{/if}>
+        {$item.name}
+    </option>
+{/foreach}
+        </select>
+    </div>
+</div>
+<script>
+ $('#express_id').select2();
+</script>
+<div class="form-group">
+    <label for="express_no" class="col-sm-2 control-label">快递单号</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="express_no" name="express_no" value="{$data.express_no|default='0'}" placeholder="请输入快递单号" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="pay_channel" class="col-sm-2 control-label">支付渠道</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="pay_channel" name="pay_channel" value="{$data.pay_channel|default='1'}" placeholder="请输入支付渠道" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="pay_status" class="col-sm-2 control-label">支付状态</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="pay_status" name="pay_status" value="{$data.pay_status|default='0'}" placeholder="请输入支付状态" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="pay_time" class="col-sm-2 control-label">付款时间</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="pay_time" name="pay_time" value="{$data.pay_time|default='0'}" placeholder="请选择付款时间" type="text" class="form-control filed-datetime">
+    </div>
+</div>
+<script>
+    laydate.render({
+        elem: '#pay_time',
+        type: 'datetime',
+        value: '{$data.pay_time|default="1900-01-01 00:00:00"}'
+    });
+</script>
+<div class="form-group">
+    <label for="deliver_status" class="col-sm-2 control-label">发货状态</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="deliver_status" name="deliver_status" value="{$data.deliver_status|default='0'}" placeholder="请输入发货状态" type="text" class="form-control field-text">
+    </div>
+</div>
+<div class="form-group">
+    <label for="deliver_time" class="col-sm-2 control-label">发货时间</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="deliver_time" name="deliver_time" value="{$data.deliver_time|default='0'}" placeholder="请选择发货时间" type="text" class="form-control filed-datetime">
+    </div>
+</div>
+<script>
+    laydate.render({
+        elem: '#deliver_time',
+        type: 'datetime',
+        value: '{$data.deliver_time|default="1900-01-01 00:00:00"}'
+    });
+</script>
+<div class="form-group">
+    <label for="receive_time" class="col-sm-2 control-label">收货时间</label>
+    <div class="col-sm-10 col-md-4">
+        <input id="receive_time" name="receive_time" value="{$data.receive_time|default='0'}" placeholder="请选择收货时间" type="text" class="form-control filed-datetime">
+    </div>
+</div>
+<script>
+    laydate.render({
+        elem: '#receive_time',
+        type: 'datetime',
+        value: '{$data.receive_time|default="1900-01-01 00:00:00"}'
+    });
+</script>
+
+                    </div>
+                    <!-- 表单底部 -->
+                    <div class="box-footer">
+                        {:token()}
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-10 col-md-4">
+                            {if !isset($data)}
+                                <div class="btn-group pull-right">
+                                    <label class="createContinue">
+                                        <input type="checkbox" value="1" id="_create" name="_create"
+                                                                   title="继续添加数据">继续添加</label>
+                                </div>
+                             {/if}
+                            <div class="btn-group">
+                                <button type="submit" class="btn flat btn-info dataFormSubmit">
+                                    保存
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="reset" class="btn flat btn-default dataFormReset">
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    /** 表单验证 **/
+    $('#dataForm').validate({
+        rules: {
+                'order_no': {
+        required: true,
+    },
+    'user_id': {
+        required: true,
+    },
+    'order_price': {
+        required: true,
+    },
+    'pay_price': {
+        required: true,
+    },
+    'goods_price': {
+        required: true,
+    },
+    'express_price': {
+        required: true,
+    },
+    'name': {
+        required: true,
+    },
+    'mobile': {
+        required: true,
+    },
+    'address': {
+        required: true,
+    },
+    'express_id': {
+        required: true,
+    },
+    'express_no': {
+        required: true,
+    },
+    'pay_channel': {
+        required: true,
+    },
+    'pay_status': {
+        required: true,
+    },
+    'pay_time': {
+        required: true,
+    },
+    'deliver_status': {
+        required: true,
+    },
+    'deliver_time': {
+        required: true,
+    },
+    'receive_time': {
+        required: true,
+    },
+
+        },
+        messages: {
+                'order_no': {
+        required: "订单编号不能为空",
+    },
+    'user_id': {
+        required: "下单用户不能为空",
+    },
+    'order_price': {
+        required: "订单金额不能为空",
+    },
+    'pay_price': {
+        required: "支付金额不能为空",
+    },
+    'goods_price': {
+        required: "商品总额不能为空",
+    },
+    'express_price': {
+        required: "运费不能为空",
+    },
+    'name': {
+        required: "姓名不能为空",
+    },
+    'mobile': {
+        required: "手机号不能为空",
+    },
+    'address': {
+        required: "收货地址不能为空",
+    },
+    'express_id': {
+        required: "快递公司不能为空",
+    },
+    'express_no': {
+        required: "快递单号不能为空",
+    },
+    'pay_channel': {
+        required: "支付渠道不能为空",
+    },
+    'pay_status': {
+        required: "支付状态不能为空",
+    },
+    'pay_time': {
+        required: "付款时间不能为空",
+    },
+    'deliver_status': {
+        required: "发货状态不能为空",
+    },
+    'deliver_time': {
+        required: "发货时间不能为空",
+    },
+    'receive_time': {
+        required: "收货时间不能为空",
+    },
+
+        }
+    });
+</script>
+{/block}

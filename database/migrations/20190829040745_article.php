@@ -14,7 +14,7 @@ class Article extends Migrator
         $table
             ->addColumn('name', 'string', ['limit' => 30, 'default' => '', 'comment' => '标题'])
             ->addColumn('user_id', 'integer', ['limit' => 10, 'default' => 0, 'comment' => '发布人'])
-            ->addColumn('category_id', 'integer', ['limit' => 10, 'default' => 0, 'comment' => '所属分类'])
+            ->addColumn('article_category_id', 'integer', ['limit' => 10, 'default' => 0, 'comment' => '所属分类'])
             ->addColumn('description', 'string', ['limit' => 50, 'default' => '', 'comment' => '简介'])
             ->addColumn('content', 'text', [ 'comment' => '内容'])
             ->addColumn('is_top', 'boolean', ['limit' => 1, 'default' => 1, 'comment' => '是否置顶'])
