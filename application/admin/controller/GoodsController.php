@@ -19,9 +19,9 @@ class GoodsController extends Controller
     public function index(Request $request, Goods $model)
     {
         $param = $request->param();
-        $model  = $model->with('goods_category,brand')->scope('where', $param);
-        
-        $data = $model->paginate($this->admin['per_page'], false, ['query'=>$request->get()]);
+        $model = $model->with('goods_category,brand')->scope('where', $param);
+
+        $data = $model->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
         //关键词，排序等赋值
         $this->assign($request->get());
 
@@ -44,25 +44,32 @@ class GoodsController extends Controller
             }
             $param['attr'] = $request->param(false)['attr'];
 
-$param['detail'] = $request->param(false)['detail'];
+            $param['detail'] = $request->param(false)['detail'];
 
+            //处理图片上传
+            $attachment_img = new \app\common\model\Attachment;
+            $file_img       = $attachment_img->upload('img');
+            if ($file_img) {
+                $param['img'] = $file_img->url;
+            } else {
+                return error($attachment_img->getError());
+            }
 
             $result = $model::create($param);
 
             $url = URL_BACK;
-            if(isset($param['_create']) && $param['_create']==1){
-               $url = URL_RELOAD;
+            if (isset($param['_create']) && $param['_create'] == 1) {
+                $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功',$url) : error();
+            return $result ? success('添加成功', $url) : error();
         }
 
         $this->assign([
-    'goods_category_list' => GoodsCategory::all(),
-'brand_list' => Brand::all(),
+            'goods_category_list' => $this->getSelectList(new GoodsCategory),
+            'brand_list'          => Brand::all(),
 
-]);
-
+        ]);
 
 
         return $this->fetch();
@@ -81,17 +88,25 @@ $param['detail'] = $request->param(false)['detail'];
             }
             $param['attr'] = $request->param(false)['attr'];
 
-$param['detail'] = $request->param(false)['detail'];
+            $param['detail'] = $request->param(false)['detail'];
 
+            //处理图片上传
+            if (!empty($_FILES['img']['name'])) {
+                $attachment_img = new \app\common\model\Attachment;
+                $file_img       = $attachment_img->upload('img');
+                if ($file_img) {
+                    $param['img'] = $file_img->url;
+                }
+            }
 
             $result = $data->save($param);
             return $result ? success() : error();
         }
 
         $this->assign([
-            'data' => $data,
-            'goods_category_list' => GoodsCategory::all(),
-'brand_list' => Brand::all(),
+            'data'                => $data,
+            'goods_category_list' => $this->getSelectList(new GoodsCategory,$data->goods_category_id),
+            'brand_list'          => Brand::all(),
 
         ]);
         return $this->fetch('add');
@@ -120,5 +135,5 @@ $param['detail'] = $request->param(false)['detail'];
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
 
-    
+
 }

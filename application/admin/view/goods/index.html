@@ -5,51 +5,62 @@
 <section class="content">
 
     <!--顶部搜索筛选-->
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body">
-                <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
 
-                    <div class="form-group">
-                        <input value="{$_keywords ? $_keywords : '' ;}"
-                               name="_keywords" id="_keywords" class="form-control input-sm" placeholder="名称">
-                    </div>
+                        <div class="form-group">
+                            <input value="{$_keywords ? $_keywords : '' ;}"
+                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="名称">
+                        </div>
 
-                    <div class="form-group">
-    <select name="_order" id="_order" class="form-control input-sm index-order">
-        <option value="">排序字段</option>
-        <option value="id" {if isset($_order) && $_order=='id'}selected{/if}>ID</option>
-<option value="origin_price" {if isset($_order) && $_order=='origin_price'}selected{/if}>原价</option><option value="price" {if isset($_order) && $_order=='price'}selected{/if}>售价</option><option value="weight" {if isset($_order) && $_order=='weight'}selected{/if}>重量</option><option value="stock" {if isset($_order) && $_order=='stock'}selected{/if}>库存</option><option value="sort_number" {if isset($_order) && $_order=='sort_number'}selected{/if}>排序(升序</option><option value="status" {if isset($_order) && $_order=='status'}selected{/if}>是否上架</option>    </select>
-</div>
+                        <div class="form-group">
+                            <select name="_order" id="_order" class="form-control input-sm index-order">
+                                <option value="">排序字段</option>
+                                <option value="id" {if isset($_order) && $_order=='id'}selected{/if}>ID</option>
+                                <option value="origin_price" {if isset($_order) &&
+                                        $_order=='origin_price'}selected{/if}>原价
+                                </option>
+                                <option value="price" {if isset($_order) && $_order=='price'}selected{/if}>售价</option>
+                                <option value="weight" {if isset($_order) && $_order=='weight'}selected{/if}>重量</option>
+                                <option value="stock" {if isset($_order) && $_order=='stock'}selected{/if}>库存</option>
+                                <option value="sort_number" {if isset($_order) && $_order=='sort_number'}selected{/if}>
+                                    排序(升序
+                                </option>
+                                <option value="status" {if isset($_order) && $_order=='status'}selected{/if}>是否上架
+                                </option>
+                            </select>
+                        </div>
 
-<div class="form-group">
-    <select name="_by" id="_by" class="form-control input-sm index-order">
-        <option value="">排序方式</option>
-        <option value="desc" {if isset($_by) && $_by=='desc'}selected{/if}>倒序</option>
-        <option value="asc" {if isset($_by) && $_by=='asc'}selected{/if}>正序</option>
-    </select>
-</div>
-<script>
-    $('#_order').select2();
-    $('#_by').select2();
-</script>
+                        <div class="form-group">
+                            <select name="_by" id="_by" class="form-control input-sm index-order">
+                                <option value="">排序方式</option>
+                                <option value="desc" {if isset($_by) && $_by=='desc'}selected{/if}>倒序</option>
+                                <option value="asc" {if isset($_by) && $_by=='asc'}selected{/if}>正序</option>
+                            </select>
+                        </div>
+                        <script>
+                            $('#_order').select2();
+                            $('#_by').select2();
+                        </script>
 
-                    <div class="form-group">
-                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
-                        </button>
-                    </div>
-                    
-                    <div class="form-group">
-                        <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
-                                class="fa  fa-eraser"></i> 清空查询
-                        </button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                    class="fa  fa-eraser"></i> 清空查询
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="row">
         <div class="col-md-12">
@@ -58,16 +69,18 @@
                 <!--数据列表顶部-->
                 <div class="box-header">
                     <div>
-                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm "  href="{:url('add')}">
-    <i class="fa fa-plus"></i> 添加
-</a>
-                        <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
-    <i class="fa fa-trash"></i> 删除
-</a>
-                        
+                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{:url('add')}">
+                            <i class="fa fa-plus"></i> 添加
+                        </a>
+                        <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据"
+                           data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked"
+                           data-url="{:url('del')}">
+                            <i class="fa fa-trash"></i> 删除
+                        </a>
+
                         <a class="btn btn-success btn-sm ReloadButton" data-toggle="tooltip" title="刷新">
-    <i class="fa fa-refresh"></i> 刷新
-</a>
+                            <i class="fa fa-refresh"></i> 刷新
+                        </a>
                     </div>
                 </div>
 
@@ -76,19 +89,21 @@
                         <thead>
                         <tr>
                             <th>
-    <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox" placeholder="全选/取消">
-</th>
+                                <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox"
+                                       placeholder="全选/取消">
+                            </th>
                             <th>ID</th>
-<th>所属分类</th>
-<th>品牌</th>
-<th>名称</th>
-<th>原价</th>
-<th>售价</th>
-<th>重量</th>
-<th>库存</th>
-<th>排序(升序</th>
-<th>是否上架</th>
-<th>创建时间</th>
+                            <th>图片</th>
+                            <th>名称</th>
+                            <th>所属分类</th>
+                            <th>品牌</th>
+                            <th>原价</th>
+                            <th>售价</th>
+                            <th>重量(克)</th>
+                            <th>库存</th>
+                            <th>排序(升序)</th>
+                            <th>是否上架</th>
+                            <th>创建时间</th>
 
                             <th>操作</th>
                         </tr>
@@ -97,29 +112,35 @@
                         {foreach name="data" item="item"}
                         <tr>
                             <td>
-    <input type="checkbox" onclick="checkThis(this)" name="data-checkbox" data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}" placeholder="选择/取消">
-</td>
+                                <input type="checkbox" onclick="checkThis(this)" name="data-checkbox"
+                                       data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
+                                       placeholder="选择/取消">
+                            </td>
                             <td>{$item.id}</td>
-<td>{$item.goods_category.name|default=''}</td>
-<td>{$item.brand.name|default=''}</td>
-<td>{$item.name}</td>
-<td>{$item.origin_price}</td>
-<td>{$item.price}</td>
-<td>{$item.weight}</td>
-<td>{$item.stock}</td>
-<td>{$item.sort_number}</td>
-<td>{$item.status_text}</td>
-<td>{$item.create_time}</td>
+                            <td><img class="dataListImg" src="{$item.img}"></td>
+                            <td>{$item.name}</td>
+                            <td>{$item.goods_category.name|default=''}</td>
+                            <td>{$item.brand.name|default=''}</td>
+                            <td>{$item.origin_price}</td>
+                            <td>{$item.price}</td>
+                            <td>{$item.weight}</td>
+                            <td>{$item.stock}</td>
+                            <td>{$item.sort_number}</td>
+                            <td>{$item.status_text}</td>
+                            <td>{$item.create_time}</td>
 
                             <td class="td-do">
                                 <a href="{:url('edit',['id'=>$item.id])}"
                                    class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"  data-id="{$item.id}" data-confirm-title="删除确认" data-confirm-content='您确定要删除ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('del')}">
-    <i class="fa fa-trash"></i>
-</a>
-                                
+                                <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
+                                   data-id="{$item.id}" data-confirm-title="删除确认"
+                                   data-confirm-content='您确定要删除ID为 <span class="text-red">{$item.id}</span> 的数据吗'
+                                   data-url="{:url('del')}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
                             </td>
                         </tr>
                         {/foreach}

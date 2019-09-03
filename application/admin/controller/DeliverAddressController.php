@@ -1,31 +1,41 @@
 <?php
 /**
- * 商品分类控制器
+ * 收货地址控制器
  */
 
 namespace app\admin\controller;
 
 use think\Request;
-use app\common\model\GoodsCategory;
+use app\common\model\DeliverAddress;
+use app\common\model\User;
+use yupoxiong\region\model\Region;
 
-use app\common\validate\GoodsCategoryValidate;
 
-class GoodsCategoryController extends Controller
+use app\common\validate\DeliverAddressValidate;
+
+class DeliverAddressController extends Controller
 {
 
     //列表
-    public function index(Request $request, GoodsCategory $model)
+    public function index(Request $request, DeliverAddress $model)
     {
-        $data = $this->getTreeList($model);
+        $param = $request->param();
+        $model = $model->with('user,province,city,district,street')->scope('where', $param);
+
+        $data = $model->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
+        //关键词，排序等赋值
+        $this->assign($request->get());
 
         $this->assign([
             'data'  => $data,
+            'page'  => $data->render(),
+            'total' => $data->total(),
         ]);
         return $this->fetch();
     }
 
     //添加
-    public function add(Request $request, GoodsCategory $model, GoodsCategoryValidate $validate)
+    public function add(Request $request, DeliverAddress $model, DeliverAddressValidate $validate ,Region $region)
     {
         if ($request->isPost()) {
             $param           = $request->param();
@@ -33,26 +43,32 @@ class GoodsCategoryController extends Controller
             if (!$validate_result) {
                 return error($validate->getError());
             }
-            
+
             $result = $model::create($param);
 
             $url = URL_BACK;
-            if(isset($param['_create']) && $param['_create']==1){
-               $url = URL_RELOAD;
+            if (isset($param['_create']) && $param['_create'] == 1) {
+                $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功',$url) : error();
+            return $result ? success('添加成功', $url) : error();
         }
 
         $this->assign([
-            'cat_list'=>$this->getSelectList($model),
+            'user_list'     => User::all(),
+            'province_list' => $region->getProvince(),
+            'city_list'     =>$region->getCity(1),
+            'district_list' => $region->getDistrict(1),
+            'street_list'   =>$region->getStreet(1),
+
         ]);
+
 
         return $this->fetch();
     }
 
     //修改
-    public function edit($id, Request $request, GoodsCategory $model, GoodsCategoryValidate $validate)
+    public function edit($id, Request $request, DeliverAddress $model, DeliverAddressValidate $validate,Region $region)
     {
 
         $data = $model::get($id);
@@ -62,22 +78,27 @@ class GoodsCategoryController extends Controller
             if (!$validate_result) {
                 return error($validate->getError());
             }
-            
+
             $result = $data->save($param);
             return $result ? success() : error();
         }
 
         $this->assign([
-            'data' => $data,
-            'cat_list'=>$this->getSelectList($model,$data->parent_id),
-            
+            'data'          => $data,
+            'user_list'     => User::all(),
+            'province_list' => $region->getProvince(),
+            'city_list'     =>$region->getCity(1),
+            'district_list' => $region->getDistrict(1),
+            'street_list'   =>$region->getStreet(1),
+
+
         ]);
         return $this->fetch('add');
 
     }
 
     //删除
-    public function del($id, GoodsCategory $model)
+    public function del($id, DeliverAddress $model)
     {
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
@@ -99,13 +120,5 @@ class GoodsCategoryController extends Controller
     }
 
 
-    protected function getSelectList($model, $selected = 0)
-    {
-        $data = $model->column('id,parent_id,name', 'id');
-
-        $html = "<option value='\$id' \$selected  >\$spacer \$name</option>";
-        $this->initTree($data);
-        return $this->getTree(0, $html, $selected);
-    }
 
 }

@@ -17,9 +17,9 @@ class BrandController extends Controller
     public function index(Request $request, Brand $model)
     {
         $param = $request->param();
-        $model  = $model->scope('where', $param);
-        
-        $data = $model->paginate($this->admin['per_page'], false, ['query'=>$request->get()]);
+        $model = $model->scope('where', $param);
+
+        $data = $model->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
         //关键词，排序等赋值
         $this->assign($request->get());
 
@@ -41,26 +41,25 @@ class BrandController extends Controller
                 return error($validate->getError());
             }
             //处理图片上传
-$attachment_img = new \app\common\model\Attachment;
-$file_img       = $attachment_img->upload('img');
-if ($file_img) {
-    $param['img'] = $file_img->url;
-} else {
-    return error($attachment_img->getError());
-}
+            $attachment_img = new \app\common\model\Attachment;
+            $file_img       = $attachment_img->upload('img');
+            if ($file_img) {
+                $param['img'] = $file_img->url;
+            } else {
+                return error($attachment_img->getError());
+            }
 
 
             $result = $model::create($param);
 
             $url = URL_BACK;
-            if(isset($param['_create']) && $param['_create']==1){
-               $url = URL_RELOAD;
+            if (isset($param['_create']) && $param['_create'] == 1) {
+                $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功',$url) : error();
+            return $result ? success('添加成功', $url) : error();
         }
 
-        
 
         return $this->fetch();
     }
@@ -77,13 +76,13 @@ if ($file_img) {
                 return error($validate->getError());
             }
             //处理图片上传
-if (!empty($_FILES['img']['name'])) {
-    $attachment_img = new \app\common\model\Attachment;
-    $file_img       = $attachment_img->upload('img');
-    if ($file_img) {
-        $param['img'] = $file_img->url;
-    }
-}
+            if (!empty($_FILES['img']['name'])) {
+                $attachment_img = new \app\common\model\Attachment;
+                $file_img       = $attachment_img->upload('img');
+                if ($file_img) {
+                    $param['img'] = $file_img->url;
+                }
+            }
 
 
             $result = $data->save($param);
@@ -92,7 +91,7 @@ if (!empty($_FILES['img']['name'])) {
 
         $this->assign([
             'data' => $data,
-            
+
         ]);
         return $this->fetch('add');
 
@@ -120,5 +119,5 @@ if (!empty($_FILES['img']['name'])) {
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
 
-    
+
 }

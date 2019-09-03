@@ -1,0 +1,113 @@
+<!--空白页面参考模版-->
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="box">
+
+                <!--数据列表顶部-->
+                <div class="box-header">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fa fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-hover table-bordered dataTable no-padding" width="100%">
+                        <tbody>
+
+                        <tr>
+                            <th colspan="10" class="text-center bg-blue">基本信息</th>
+                        </tr>
+
+                        <tr>
+                            <th>订单ID</th>
+                            <td>{$data.id}</td>
+                            <th>订单号</th>
+                            <td>{$data.order_no}</td>
+                            <th>订单金额</th>
+                            <td>{$data.order_price}</td>
+                            <th>下单人</th>
+                            <td>{$data.user.nickname|default=''}[{$data.user.mobile|default=''}]</td>
+                            <th>下单时间</th>
+                            <td>{$data.create_time}</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="10" class="text-center bg-blue">支付信息</th>
+                        </tr>
+
+                        <tr>
+                            <th>应付金额</th>
+                            <td>{$data.pay_price}</td>
+                            <th>支付方式</th>
+                            <td>{$data.pay_channel_text}</td>
+                            <th>实付金额</th>
+                            <td>{$data.pay_price}</td>
+                            <th>支付状态</th>
+                            <td>{$data.pay_status_text}</td>
+                            <th>付款时间</th>
+                            <td>{$data.pay_time}</td>
+                        </tr>
+
+
+                        <tr>
+                            <th colspan="10" class="text-center bg-blue">商品信息</th>
+                        </tr>
+                        <tr>
+                        <th colspan="4">名称</th>
+                        <th colspan="2">价格</th>
+                        <th colspan="2">数量</th>
+                        <th colspan="2">小记</th>
+                        </tr>
+
+                        {foreach name='data.orderGoods' item='item'}
+                        <tr>
+                            <td colspan="4">{$item.name}</td>
+                            <td colspan="2">{$item.price}</td>
+                            <td colspan="2">{$item.number}</td>
+                            <td colspan="2">{$item.total_price}</td>
+                        </tr>
+                        {/foreach}
+
+                        <tr>
+                            <th colspan="10" class="text-center bg-blue">收货信息</th>
+                        </tr>
+
+                        <tr>
+                            <th>发货状态</th>
+                            <td>{$data.deliver_status_text}</td>
+                            <th>收货人姓名</th>
+                            <td>{$data.name}</td>
+                            <th>订收货人手机号</th>
+                            <td>{$data.mobile}</td>
+                            <th>收货地址</th>
+                            <td>{$data.full_address}</td>
+                            <th>快递单号</th>
+                            <td>{$data.express_no}[{$data.express.name|default=''}]</td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="box-footer">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{/block}

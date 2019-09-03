@@ -5,34 +5,31 @@
 <section class="content">
 
     <!--顶部搜索筛选-->
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body">
-                <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
 
-                    <div class="form-group">
-                        <input value="{$_keywords ? $_keywords : '' ;}"
-                               name="_keywords" id="_keywords" class="form-control input-sm" placeholder="姓名/手机号">
-                    </div>
+                        <div class="form-group">
+                            <input value="{$_keywords ? $_keywords : '' ;}"
+                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="订单号/手机号">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
 
-                    
-
-                    <div class="form-group">
-                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
-                        </button>
-                    </div>
-                    
-                    <div class="form-group">
-                        <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
-                                class="fa  fa-eraser"></i> 清空查询
-                        </button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                    class="fa  fa-eraser"></i> 清空查询
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="row">
         <div class="col-md-12">
@@ -41,16 +38,10 @@
                 <!--数据列表顶部-->
                 <div class="box-header">
                     <div>
-                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm "  href="{:url('add')}">
-    <i class="fa fa-plus"></i> 添加
-</a>
-                        <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
-    <i class="fa fa-trash"></i> 删除
-</a>
-                        
+
                         <a class="btn btn-success btn-sm ReloadButton" data-toggle="tooltip" title="刷新">
-    <i class="fa fa-refresh"></i> 刷新
-</a>
+                            <i class="fa fa-refresh"></i> 刷新
+                        </a>
                     </div>
                 </div>
 
@@ -58,28 +49,18 @@
                     <table class="table table-hover table-bordered datatable" width="100%">
                         <thead>
                         <tr>
-                            <th>
-    <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox" placeholder="全选/取消">
-</th>
+
                             <th>ID</th>
-<th>订单编号</th>
-<th>下单用户</th>
-<th>订单金额</th>
-<th>支付金额</th>
-<th>商品总额</th>
-<th>运费</th>
-<th>姓名</th>
-<th>手机号</th>
-<th>收货地址</th>
-<th>快递公司</th>
-<th>快递单号</th>
-<th>支付渠道</th>
-<th>支付状态</th>
-<th>付款时间</th>
-<th>发货状态</th>
-<th>发货时间</th>
-<th>收货时间</th>
-<th>创建时间</th>
+                            <th>订单编号</th>
+                            <th>下单用户</th>
+                            <th>订单金额</th>
+                            <th>收货人姓名</th>
+                            <th>收货手机号</th>
+                            <th>收货地址</th>
+                            <th>支付渠道</th>
+                            <th>支付状态</th>
+                            <th>发货状态</th>
+                            <th>下单时间</th>
 
                             <th>操作</th>
                         </tr>
@@ -87,38 +68,23 @@
                         <tbody>
                         {foreach name="data" item="item"}
                         <tr>
-                            <td>
-    <input type="checkbox" onclick="checkThis(this)" name="data-checkbox" data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}" placeholder="选择/取消">
-</td>
                             <td>{$item.id}</td>
-<td>{$item.order_no}</td>
-<td>{$item.user.nickname|default=''}</td>
-<td>{$item.order_price}</td>
-<td>{$item.pay_price}</td>
-<td>{$item.goods_price}</td>
-<td>{$item.express_price}</td>
-<td>{$item.name}</td>
-<td>{$item.mobile}</td>
-<td>{$item.address}</td>
-<td>{$item.express.name|default=''}</td>
-<td>{$item.express_no}</td>
-<td>{$item.pay_channel}</td>
-<td>{$item.pay_status}</td>
-<td>{$item.pay_time}</td>
-<td>{$item.deliver_status}</td>
-<td>{$item.deliver_time}</td>
-<td>{$item.receive_time}</td>
-<td>{$item.create_time}</td>
+                            <td>{$item.order_no}</td>
+                            <td>{$item.user.nickname|default=''}</td>
+                            <td>{$item.order_price}</td>
+                            <td>{$item.name}</td>
+                            <td>{$item.mobile}</td>
+                            <td>{$item.address}</td>
+                            <td>{$item.pay_channel_text}</td>
+                            <td>{$item.pay_status_text}</td>
+                            <td>{$item.deliver_status_text}</td>
+                            <td>{$item.create_time}</td>
 
                             <td class="td-do">
-                                <a href="{:url('edit',['id'=>$item.id])}"
-                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
-                                    <i class="fa fa-pencil"></i>
+                                <a href="{:url('detail',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="订单详情" data-toggle="tooltip">
+                                    <i class="fa  fa-info-circle"></i>
                                 </a>
-                                <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"  data-id="{$item.id}" data-confirm-title="删除确认" data-confirm-content='您确定要删除ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('del')}">
-    <i class="fa fa-trash"></i>
-</a>
-                                
                             </td>
                         </tr>
                         {/foreach}

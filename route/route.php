@@ -29,6 +29,8 @@ Route::group('api', function () {
 });
 
 
+Route::alias('region','\yupoxiong\region\RegionController');
+
 return [
 
 ];

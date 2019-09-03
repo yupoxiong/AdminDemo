@@ -1,0 +1,282 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <!-- 表单头部 -->
+                <div class="box-header with-border">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fa fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+                <!-- 表单 -->
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post"
+                      enctype="multipart/form-data">
+                    <!-- 表单字段区域 -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="user_id" class="col-sm-2 control-label">用户</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="user_id" id="user_id" class="form-control field-select"
+                                        data-placeholder="请选择用户">
+                                    <option value=""></option>
+                                    {foreach name='user_list' id='item'}
+                                    <option value="{$item.id}" {if isset($data) &&
+                                            $data.user_id==$item.id}selected{/if}>
+                                        {$item.nickname}
+                                    </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#user_id').select2();
+                        </script>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入姓名"
+                                       type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">手机号</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="mobile" name="mobile" value="{$data.mobile|default=''}" placeholder="请输入手机号"
+                                       type="tel" maxlength="11" class="form-control field-mobile">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="province_id" class="col-sm-2 control-label">省</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="province_id" id="province_id" class="form-control field-select"
+                                        data-placeholder="请选择省"  onchange="getRegion(this.value,1)">
+                                    <option value=""></option>
+                                    {foreach name='province_list' id='item'}
+                                    <option value="{$item.id}" {if isset($data) &&
+                                            $data.province_id==$item.id}selected{/if}>
+                                        {$item.name}
+                                    </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#province_id').select2();
+                        </script>
+                        <div class="form-group">
+                            <label for="city_id" class="col-sm-2 control-label">市</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="city_id" id="city_id" class="form-control field-select"
+                                        data-placeholder="请选择市"  onchange="getRegion(this.value,2)">
+                                    <option value=""></option>
+                                    {foreach name='city_list' id='item'}
+                                    <option value="{$item.id}" {if isset($data) &&
+                                            $data.city_id==$item.id}selected{/if}>
+                                        {$item.name}
+                                    </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#city_id').select2();
+                        </script>
+                        <div class="form-group">
+                            <label for="district_id" class="col-sm-2 control-label">区</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="district_id" id="district_id" class="form-control field-select"
+                                        data-placeholder="请选择区"  onchange="getRegion(this.value,3)">
+                                    <option value=""></option>
+                                    {foreach name='district_list' id='item'}
+                                    <option value="{$item.id}" {if isset($data) &&
+                                            $data.district_id==$item.id}selected{/if}>
+                                        {$item.name}
+                                    </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#district_id').select2();
+                        </script>
+                        <div class="form-group">
+                            <label for="street_id" class="col-sm-2 control-label">街道</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="street_id" id="street_id" class="form-control field-select"
+                                        data-placeholder="请选择街道" onchange="getRegion(this.value,4)">
+                                    <option value=""></option>
+                                    {foreach name='street_list' id='item'}
+                                    <option value="{$item.id}" {if isset($data) &&
+                                            $data.street_id==$item.id}selected{/if}>
+                                        {$item.name}
+                                    </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#street_id').select2();
+                        </script>
+                        <div class="form-group">
+                            <label for="detail" class="col-sm-2 control-label">详细地址</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="detail" name="detail" value="{$data.detail|default=''}" placeholder="请输入详细地址"
+                                       type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="is_default" class="col-sm-2 control-label">是否默认</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input class="input-switch" id="is_default" value="1" {if(!isset($data)
+                                       ||$data.is_default==1)}checked{/if} type="checkbox"/>
+                                <input class="switch field-switch" placeholder="是否默认" name="is_default"
+                                       value="{$data.is_default|default='0'}" hidden/>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('#is_default').bootstrapSwitch({
+                                onText: "是",
+                                offText: "否",
+                                onColor: "success",
+                                offColor: "danger",
+                                onSwitchChange: function (event, state) {
+                                    $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
+                                }
+                            });
+                        </script>
+                    </div>
+                    <!-- 表单底部 -->
+                    <div class="box-footer">
+                        {:token()}
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-10 col-md-4">
+                            {if !isset($data)}
+                            <div class="btn-group pull-right">
+                                <label class="createContinue">
+                                    <input type="checkbox" value="1" id="_create" name="_create"
+                                           title="继续添加数据">继续添加</label>
+                            </div>
+                            {/if}
+                            <div class="btn-group">
+                                <button type="submit" class="btn flat btn-info dataFormSubmit">
+                                    保存
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="reset" class="btn flat btn-default dataFormReset">
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    /** 表单验证 **/
+    $('#dataForm').validate({
+        rules: {
+            'user_id': {
+                required: true,
+            },
+            'name': {
+                required: true,
+            },
+            'mobile': {
+                required: true,
+            },
+            'province_id': {
+                required: true,
+            },
+            'city_id': {
+                required: true,
+            },
+            'district_id': {
+                required: true,
+            },
+            'street_id': {
+                required: true,
+            },
+            'detail': {
+                required: true,
+            },
+            'is_default': {
+                required: true,
+            },
+
+        },
+        messages: {
+            'user_id': {
+                required: "用户不能为空",
+            },
+            'name': {
+                required: "姓名不能为空",
+            },
+            'mobile': {
+                required: "手机号不能为空",
+            },
+            'province_id': {
+                required: "省不能为空",
+            },
+            'city_id': {
+                required: "市不能为空",
+            },
+            'district_id': {
+                required: "区不能为空",
+            },
+            'street_id': {
+                required: "街道不能为空",
+            },
+            'detail': {
+                required: "详细地址不能为空",
+            },
+            'is_default': {
+                required: "是否默认不能为空",
+            },
+
+        }
+    });
+</script>
+
+<script>
+
+    var regionId = ['#province_id', '#city_id', '#district_id', '#street_id'];
+    var regionHtml = ['请选择省', '请选择市', '请选择区(县)', '请选择街道'];
+
+    $(function () {
+        getRegion(0, 0);
+    });
+
+    function getRegion(parent_id, level) {
+        clearSon(level);
+        var html = '<option value="-1">' + regionHtml[level] + '</option>';
+        $.post('/region/getRegion', {parent_id: parent_id, level: level}, function (result) {
+            $.each(result, function (index, item) {
+                html += '<option value="' + item.id + '">' + item.name + '</option>'
+            });
+            $(regionId[level]).html(html);
+            $('.field-select').select2();
+        });
+    }
+
+    function clearSon(level) {
+        for (var i = level + 1; i <= 4; i++) {
+            var html = '<option value="-1">' + regionHtml[i] + '</option>';
+            $(regionId[i]).html(html);
+            $('.field-select').select2();
+        }
+    }
+
+</script>
+
+{/block}

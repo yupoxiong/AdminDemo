@@ -15,27 +15,31 @@
                     </div>
                 </div>
                 <!-- 表单 -->
-                <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post"
+                      enctype="multipart/form-data">
                     <!-- 表单字段区域 -->
                     <div class="box-body">
                         <div class="form-group">
-    <label for="parent_id" class="col-sm-2 control-label">上级分类</label>
-    <div class="col-sm-10 col-md-4">
-        <select name="parent_id" id="parent_id" class="form-control field-select" data-placeholder="请选择上级分类">
-            <option value=""></option>
-            
-        </select>
-    </div>
-</div>
-<script>
- $('#parent_id').select2();
-</script>
-<div class="form-group">
-    <label for="name" class="col-sm-2 control-label">名称</label>
-    <div class="col-sm-10 col-md-4">
-        <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入名称" type="text" class="form-control field-text">
-    </div>
-</div>
+                            <label for="parent_id" class="col-sm-2 control-label">上级分类</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="parent_id" id="parent_id" class="form-control field-select"
+                                        data-placeholder="请选择上级分类">
+                                    <option value="0">顶级分类</option>
+                                    {$cat_list|raw}
+
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#parent_id').select2();
+                        </script>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">名称</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入名称"
+                                       type="text" class="form-control field-text">
+                            </div>
+                        </div>
 
                     </div>
                     <!-- 表单底部 -->
@@ -45,12 +49,12 @@
                         </div>
                         <div class="col-sm-10 col-md-4">
                             {if !isset($data)}
-                                <div class="btn-group pull-right">
-                                    <label class="createContinue">
-                                        <input type="checkbox" value="1" id="_create" name="_create"
-                                                                   title="继续添加数据">继续添加</label>
-                                </div>
-                             {/if}
+                            <div class="btn-group pull-right">
+                                <label class="createContinue">
+                                    <input type="checkbox" value="1" id="_create" name="_create"
+                                           title="继续添加数据">继续添加</label>
+                            </div>
+                            {/if}
                             <div class="btn-group">
                                 <button type="submit" class="btn flat btn-info dataFormSubmit">
                                     保存
@@ -72,21 +76,21 @@
     /** 表单验证 **/
     $('#dataForm').validate({
         rules: {
-                'parent_id': {
-        required: true,
-    },
-    'name': {
-        required: true,
-    },
+            'parent_id': {
+                required: true,
+            },
+            'name': {
+                required: true,
+            },
 
         },
         messages: {
-                'parent_id': {
-        required: "上级分类不能为空",
-    },
-    'name': {
-        required: "名称不能为空",
-    },
+            'parent_id': {
+                required: "上级分类不能为空",
+            },
+            'name': {
+                required: "名称不能为空",
+            },
 
         }
     });

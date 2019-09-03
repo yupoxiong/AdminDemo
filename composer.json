@@ -21,7 +21,11 @@
         "topthink/think-migration": "^2.0",
         "topthink/think-captcha": "^2.0",
         "lcobucci/jwt": "^3.3",
-        "phpoffice/phpspreadsheet": "^1.8"
+        "phpoffice/phpspreadsheet": "^1.8",
+        "yupoxiong/region": "^1.1",
+        "overtrue/easy-sms": "^1.1",
+        "endroid/qr-code": "^3.6",
+        "overtrue/wechat": "^4.2"
     },
     "autoload": {
         "psr-4": {
