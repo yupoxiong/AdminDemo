@@ -19,6 +19,10 @@ use app\common\validate\OrderValidate;
 class OrderController extends Controller
 {
 
+    protected $authExcept = [
+        'admin/order/test'
+    ];
+
     //列表
     public function index(Request $request, Order $model)
     {
@@ -248,10 +252,34 @@ class OrderController extends Controller
     {
         $orderGoods = OrderGoods::all();
 
-        foreach ($orderGoods as $item){
-            $item->name=  $item->goods->name;
+        foreach ($orderGoods as $item) {
+            $item->name = $item->goods->name;
             $item->save();
         }
+    }
+
+    public function test(Order $order)
+    {
+        $data = $order::with(['user' => function ($query) {
+            $query->with(['userLevel' => function ($querySub) {
+                    $querySub->visible(['id', 'name']);
+                }]
+            )->visible(['id', 'nickname', 'mobile']);
+        }])->where('id', 'in', '1,5,9,13,17,21,25,29')->visible(['id', 'order_no', 'user_id'])->limit(5)->select();
+
+
+        $list = $order::with(['user' => function ($query) {
+            $query->with('userLevel')->visible(['user_level' => ['id', 'name']]);
+        }])->visible(['id', 'order_no', 'user' => ['id', 'nickname', 'mobile']])->select();
+
+
+
+
+        dump($list);
+
+
+        //return '';
+        return json($data);
     }
 
 }
