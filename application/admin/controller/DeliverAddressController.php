@@ -35,7 +35,7 @@ class DeliverAddressController extends Controller
     }
 
     //添加
-    public function add(Request $request, DeliverAddress $model, DeliverAddressValidate $validate ,Region $region)
+    public function add(Request $request, DeliverAddress $model, DeliverAddressValidate $validate, Region $region)
     {
         if ($request->isPost()) {
             $param           = $request->param();
@@ -57,9 +57,9 @@ class DeliverAddressController extends Controller
         $this->assign([
             'user_list'     => User::all(),
             'province_list' => $region->getProvince(),
-            'city_list'     =>$region->getCity(1),
+            'city_list'     => $region->getCity(1),
             'district_list' => $region->getDistrict(1),
-            'street_list'   =>$region->getStreet(1),
+            'street_list'   => $region->getStreet(1),
 
         ]);
 
@@ -68,7 +68,7 @@ class DeliverAddressController extends Controller
     }
 
     //修改
-    public function edit($id, Request $request, DeliverAddress $model, DeliverAddressValidate $validate,Region $region)
+    public function edit($id, Request $request, DeliverAddress $model, DeliverAddressValidate $validate, Region $region)
     {
 
         $data = $model::get($id);
@@ -87,9 +87,9 @@ class DeliverAddressController extends Controller
             'data'          => $data,
             'user_list'     => User::all(),
             'province_list' => $region->getProvince(),
-            'city_list'     =>$region->getCity(1),
+            'city_list'     => $region->getCity(1),
             'district_list' => $region->getDistrict(1),
-            'street_list'   =>$region->getStreet(1),
+            'street_list'   => $region->getStreet(1),
 
 
         ]);
@@ -118,7 +118,6 @@ class DeliverAddressController extends Controller
 
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
-
 
 
 }

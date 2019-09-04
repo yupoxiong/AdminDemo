@@ -1,7 +1,7 @@
 <?php
 /**
  * 标签模型
-*/
+ */
 
 namespace app\common\model;
 
@@ -22,5 +22,5 @@ class Tag extends Model
         return $this->belongsToMany(Article::class, ArticleTag::class);
     }
 
-    
+
 }

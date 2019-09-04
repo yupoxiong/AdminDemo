@@ -62,8 +62,8 @@ class GenerateController extends Controller
         $this->admin['title'] = 'AutoCode';
 
         $this->assign([
-            'table'      => (new Generate())->getTable(),
-            'menus'      => $this->menu(10000),
+            'table' => (new Generate())->getTable(),
+            'menus' => $this->menu(10000),
         ]);
 
         return $this->fetch();

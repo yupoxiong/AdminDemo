@@ -28,27 +28,30 @@ class DeliverAddress extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }//关联
-
-    public function province()
-    {
-        return $this->belongsTo(Region::class,'province_id');
-    }//关联
-
-    public function city()
-    {
-        return $this->belongsTo(Region::class,'city_id');
-    }//关联
-
-    public function district()
-    {
-        return $this->belongsTo(Region::class,'district_id');
-    }//关联
-
-    public function street()
-    {
-        return $this->belongsTo(Region::class,'street_id');
     }
 
+    //关联省
+    public function province()
+    {
+        return $this->belongsTo(Region::class, 'province_id');
+    }
+
+    //关联市
+    public function city()
+    {
+        return $this->belongsTo(Region::class, 'city_id');
+    }
+
+    //关联区县
+    public function district()
+    {
+        return $this->belongsTo(Region::class, 'district_id');
+    }
+
+    //关联街道
+    public function street()
+    {
+        return $this->belongsTo(Region::class, 'street_id');
+    }
 
 }

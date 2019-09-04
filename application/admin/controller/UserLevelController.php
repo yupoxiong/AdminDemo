@@ -143,7 +143,7 @@ class UserLevelController extends Controller
     }
 
 
-//禁用
+    //禁用
     public function disable($id, UserLevel $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 0]);

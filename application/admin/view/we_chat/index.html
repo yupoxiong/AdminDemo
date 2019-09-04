@@ -3,23 +3,111 @@
 {block name='content'}
 {include file='public/content_header' /}
 <section class="content">
-
+<style>
+    .box-body ol li{
+        margin: 5px 2px;
+        letter-spacing:1px;
+    }
+</style>
     <!-- 这里写内容即可 -->
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
-                    <blockquote>
-                        <p>本Demo的微信相关功能都基于 easywechat 扩展包</p>
-
-                        <small>这大概是PHP中最强的微信开发扩展包吧</small>
-                    </blockquote>
+                    <p>本Demo的微信相关功能都基于 EasyWeChat 扩展包,该扩展包几乎包含所有微信开发相关功能。有关微信开发的注意事项/坑个人总结了以下几点，希望对大家有所帮助：</p>
+                    <ol>
+                        <li>
+                            配置好微信公众平台/微信支付/企业微信相关配置。例如：app_id，app_secret，token，aes_key,IP白名单，授权域名，扫码通知地址等等。
+                        </li>
+                        <li>
+                            确保配置和自己的环境一致。有可能会犯的错误：配置的是http，实际是https；配置的是xxx.com域名，实际是www.xxx.com域名。
+                        </li>
+                        <li>
+                            确保程序的参数配置和微信公众平台/微信支付/企业微信相关配置一致，例如app_id,app_secret等
+                        </li>
+                        <li>
+                            公众号/企业微信类的确保自己的域名已备案，并且没有被腾讯拉入黑名单；小程序确保域名备案的同时必须为https。
+                        </li>
+                        <li>
+                            验证文件在框架中应该放置在 /public 目录下；关于各种目录的配置，注意微信的规则。
+                        </li>
+                        <li>
+                            EasyWeChat扩展包的结果有时候可能不需要 return ，有时候却需要，同时要结合自己的框架版本来尝试。
+                        </li>
+                        <li>
+                            类似于支付通知，授权登录跳转的url记得关闭登录验证或token验证之类的限制，否则可能会收不到通知/授权登录失败。
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">示例方法如下，具体可直接查看 WeChatController 控制器源代码</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>功能</th>
+                            <th>方法</th>
 
+                        </tr>
+                        <tr>
+                            <td>服务端验证</td>
+                            <td><code>server</code></td>
+
+                        </tr>
+                        <tr>
+                            <td>接收 & 回复用户消息</td>
+                            <td><code>msg</code></td>
+                        </tr>
+                        <tr>
+                            <td>获取用户信息</td>
+                            <td><code>user</code></td>
+                        </tr>
+
+                        <tr>
+                            <td>发送模版消息</td>
+                            <td><code>templateMsg</code></td>
+                        </tr>
+
+                        <tr>
+                            <td>拉黑用户</td>
+                            <td><code>block</code></td>
+                        </tr>
+
+                        <tr>
+                            <td>统一下单</td>
+                            <td><code>pay</code></td>
+                        </tr>
+
+                        <tr>
+                            <td>根据微信订单号退款</td>
+                            <td><code>refundByTransactionId</code></td>
+                        </tr>
+
+                        <tr>
+                            <td>根据商户订单号退款</td>
+                            <td><code>refundByOutTradeNo</code></td>
+                        </tr>
+                        <tr>
+                            <td>发送普通红包</td>
+                            <td><code>redPacket</code></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 </section>

@@ -14,12 +14,12 @@ class GoodsCategoryController extends Controller
 {
 
     //列表
-    public function index(Request $request, GoodsCategory $model)
+    public function index(GoodsCategory $model)
     {
         $data = $this->getTreeList($model);
 
         $this->assign([
-            'data'  => $data,
+            'data' => $data,
         ]);
         return $this->fetch();
     }
@@ -33,19 +33,19 @@ class GoodsCategoryController extends Controller
             if (!$validate_result) {
                 return error($validate->getError());
             }
-            
+
             $result = $model::create($param);
 
             $url = URL_BACK;
-            if(isset($param['_create']) && $param['_create']==1){
-               $url = URL_RELOAD;
+            if (isset($param['_create']) && $param['_create'] == 1) {
+                $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功',$url) : error();
+            return $result ? success('添加成功', $url) : error();
         }
 
         $this->assign([
-            'cat_list'=>$this->getSelectList($model),
+            'cat_list' => $this->getSelectList($model),
         ]);
 
         return $this->fetch();
@@ -62,15 +62,15 @@ class GoodsCategoryController extends Controller
             if (!$validate_result) {
                 return error($validate->getError());
             }
-            
+
             $result = $data->save($param);
             return $result ? success() : error();
         }
 
         $this->assign([
-            'data' => $data,
-            'cat_list'=>$this->getSelectList($model,$data->parent_id),
-            
+            'data'     => $data,
+            'cat_list' => $this->getSelectList($model, $data->parent_id),
+
         ]);
         return $this->fetch('add');
 
@@ -96,16 +96,6 @@ class GoodsCategoryController extends Controller
         }
 
         return $result ? success('操作成功', URL_RELOAD) : error();
-    }
-
-
-    protected function getSelectList($model, $selected = 0)
-    {
-        $data = $model->column('id,parent_id,name', 'id');
-
-        $html = "<option value='\$id' \$selected  >\$spacer \$name</option>";
-        $this->initTree($data);
-        return $this->getTree(0, $html, $selected);
     }
 
 }

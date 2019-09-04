@@ -21,7 +21,7 @@ class AdminUserController extends Controller
 
         $param = $request->param();
         $data  = $model->scope('where', $param)
-            ->paginate($this->admin['per_page'], false, ['query'=>$request->get()]);
+            ->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
 
         //关键词，排序等赋值
         $this->assign($request->get());

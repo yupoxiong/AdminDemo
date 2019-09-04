@@ -105,7 +105,7 @@ class GoodsController extends Controller
 
         $this->assign([
             'data'                => $data,
-            'goods_category_list' => $this->getSelectList(new GoodsCategory,$data->goods_category_id),
+            'goods_category_list' => $this->getSelectList(new GoodsCategory, $data->goods_category_id),
             'brand_list'          => Brand::all(),
 
         ]);

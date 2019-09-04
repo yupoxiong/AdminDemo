@@ -366,11 +366,7 @@ trait AdminTree
     protected function getSelectList($model, $selected = 0)
     {
         $data = $model->column('id,parent_id,name', 'id');
-
-        foreach ($data as $key => $value) {
-            $data[$key]['disabled'] = $value['parent_id'] === 0 ? 'disabled' : '';
-        }
-        $html = "<option value='\$id' \$selected \$disabled >\$spacer \$name</option>";
+        $html = "<option value='\$id' \$selected  >\$spacer \$name</option>";
         $this->initTree($data);
         return $this->getTree(0, $html, $selected);
     }

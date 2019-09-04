@@ -8,13 +8,12 @@ namespace app\admin\controller;
 
 use think\Request;
 use app\admin\model\AdminMenu;
-
 use app\admin\validate\AdminMenuValidate;
 
 class AdminMenuController extends Controller
 {
 
-    public function index(Request $request, AdminMenu $model)
+    public function index(AdminMenu $model)
     {
         //查询所有菜单并以树的形式显示
         $result = $model->order('sort_id asc, id asc')->column('*', 'id');
@@ -56,28 +55,28 @@ class AdminMenuController extends Controller
                 $str  = '/';
                 $data = [
                     [
-                        'parent_id' => $result->id,
-                        'name'      => '添加' . $name,
-                        'url'       => $url[0] . $str . $url[1] . $str . 'add',
-                        'icon'      => 'fa-plus',
-                        'is_show'   => 0,
-                        'log_method'  => 'POST',
+                        'parent_id'  => $result->id,
+                        'name'       => '添加' . $name,
+                        'url'        => $url[0] . $str . $url[1] . $str . 'add',
+                        'icon'       => 'fa-plus',
+                        'is_show'    => 0,
+                        'log_method' => 'POST',
                     ],
                     [
-                        'parent_id' => $result->id,
-                        'name'      => '修改' . $name,
-                        'url'       => $url[0] . $str . $url[1] . $str . 'edit',
-                        'icon'      => 'fa-pencil',
-                        'is_show'   => 0,
-                        'log_method'  => 'POST',
+                        'parent_id'  => $result->id,
+                        'name'       => '修改' . $name,
+                        'url'        => $url[0] . $str . $url[1] . $str . 'edit',
+                        'icon'       => 'fa-pencil',
+                        'is_show'    => 0,
+                        'log_method' => 'POST',
                     ],
                     [
-                        'parent_id' => $result->id,
-                        'name'      => '删除' . $name,
-                        'url'       => $url[0] . $str . $url[1] . $str . 'del',
-                        'icon'      => 'fa-trash',
-                        'is_show'   => 0,
-                        'log_method'  =>'POST',
+                        'parent_id'  => $result->id,
+                        'name'       => '删除' . $name,
+                        'url'        => $url[0] . $str . $url[1] . $str . 'del',
+                        'icon'       => 'fa-trash',
+                        'is_show'    => 0,
+                        'log_method' => 'POST',
                     ]
                 ];
 

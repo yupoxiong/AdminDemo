@@ -1,7 +1,7 @@
 <?php
 /**
  * 文章标签模型
-*/
+ */
 
 namespace app\common\model;
 

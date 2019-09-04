@@ -3,6 +3,8 @@
 namespace app\index\controller;
 
 
+use think\facade\Session;
+
 class IndexController extends Controller
 {
     //无需验证登录的方法
@@ -13,6 +15,7 @@ class IndexController extends Controller
     //前台模块首页
     public function index()
     {
+
         return $this->fetch();
     }
 

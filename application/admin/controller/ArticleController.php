@@ -71,7 +71,7 @@ class ArticleController extends Controller
         $this->assign([
             'user_list'             => User::all(),
             'article_category_list' => $this->getSelectList(new ArticleCategory),
-            'tag_list'=>Tag::all(),
+            'tag_list'              => Tag::all(),
         ]);
 
 
@@ -110,8 +110,8 @@ class ArticleController extends Controller
         $this->assign([
             'data'                  => $data,
             'user_list'             => User::all(),
-            'article_category_list' => $this->getSelectList(new ArticleCategory,$data->article_category_id),
-            'tag_list'=>Tag::all(),
+            'article_category_list' => $this->getSelectList(new ArticleCategory, $data->article_category_id),
+            'tag_list'              => Tag::all(),
 
         ]);
         return $this->fetch('add');
@@ -138,27 +138,6 @@ class ArticleController extends Controller
         }
 
         return $result ? success('操作成功', URL_RELOAD) : error();
-    }
-
-
-    public function test(Article $article)
-    {
-
-        $cat = ArticleCategory::where('parent_id','>',0)->column('id');
-
-        foreach ($article::all() as $key=>$value ){
-            $value->user_id = random_int(1,4);
-            $cat_key = array_rand($cat);
-
-            $value->article_category_id = $cat[$cat_key];
-
-            $value->is_top = random_int(0,1);
-            $value->is_hot = random_int(0,1);
-            $value->view_count = random_int(0,1000);
-
-            $value->save();
-
-        }
     }
 
 }

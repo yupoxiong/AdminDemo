@@ -112,14 +112,14 @@ class Attachment extends Model
     public function upload($name, $path = '', $validate = [], $admin_user_id = 0, $user_id = 0)
     {
 
-        if(!$_FILES[$name]['name']){
-            $this->error='请选择文件';
+        if (!$_FILES[$name]['name']) {
+            $this->error = '请选择文件';
             return false;
         }
 
         $file = request()->withFiles([$name => $_FILES[$name]])->file($name);
         if ($file) {
-            $file_path = config('attachment.path'). $path;
+            $file_path = config('attachment.path') . $path;
             $file_url  = config('attachment.url') . $path;
             $validate  = array_merge(config('attachment.validate'), $validate);
             $info      = $file->validate($validate)->move($file_path);
@@ -162,8 +162,8 @@ class Attachment extends Model
 
         $files = request()->withFiles([$name => $_FILES[$name]])->file($name);
         if ($files) {
-            foreach ($files as $file){
-                $file_path = config('attachment.path'). $path;
+            foreach ($files as $file) {
+                $file_path = config('attachment.path') . $path;
                 $file_url  = config('attachment.url') . $path;
                 $validate  = array_merge(config('attachment.validate'), $validate);
                 $info      = $file->validate($validate)->move($file_path);
@@ -181,12 +181,12 @@ class Attachment extends Model
                         'sha1'          => $info->hash(),
                         'url'           => str_replace("\\", '/', $file_url . $info->getSaveName())
                     ];
-                    $file_item =  self::create($file_info);
-                    $result[] = $file_item->url;
+                    $file_item = self::create($file_info);
+                    $result[]  = $file_item->url;
                 }
                 $this->error = $file->getError();
             }
-            if(count($result)>0){
+            if (count($result) > 0) {
                 return $result;
             }
 

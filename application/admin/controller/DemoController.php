@@ -16,7 +16,6 @@ use think\Request;
 class DemoController extends Controller
 {
 
-
     //邮件页面
     public function email()
     {
@@ -30,12 +29,12 @@ class DemoController extends Controller
         $param = $request->param();
 
         $config = config('email.smtp');
-        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        $mail   = new PHPMailer(true);                              // Passing `true` enables exceptions
         try {
 
-            $address = $param['address'];
-            $subject = $param['subject'];
-            $content = $param['content'];
+            $address      = $param['address'];
+            $subject      = $param['subject'];
+            $content      = $param['content'];
             $full_content = $request->param(false)['content'];
 
             //服务器配置
@@ -58,10 +57,10 @@ class DemoController extends Controller
 
             //发送附件
             // $mail->addAttachment('../xy.zip');         // 添加附件
-             //$mail->addAttachment(app()->getRootPath() . 'public/uploads/attachment/20190902/6a673f554c694a41971fca94c7503315.jpg', 'test.jpg');    // 发送附件并且重命名
+            //$mail->addAttachment(app()->getRootPath() . 'public/uploads/attachment/20190902/6a673f554c694a41971fca94c7503315.jpg', 'test.jpg');    // 发送附件并且重命名
 
             //Content
-            $mail->isHTML(true);                                  // 是否以HTML文档格式发送  发送后客户端可直接显示对应HTML内容
+            $mail->isHTML(true);  // 是否以HTML文档格式发送  发送后客户端可直接显示对应HTML内容
             $mail->Subject = $subject;
             $mail->Body    = $full_content;
             $mail->AltBody = $content;

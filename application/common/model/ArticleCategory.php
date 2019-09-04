@@ -1,7 +1,7 @@
 <?php
 /**
  * 文章分类模型
-*/
+ */
 
 namespace app\common\model;
 
@@ -17,13 +17,10 @@ class ArticleCategory extends Model
     //可搜索字段
     protected $searchField = ['name',];
 
-    
-
     //关联文章
-public function article()
-{
-    return $this->hasMany(Article::class);
-}
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 
-    
 }

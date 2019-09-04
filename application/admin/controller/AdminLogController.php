@@ -17,22 +17,22 @@ class AdminLogController extends Controller
     {
 
         $param = $request->param();
-        $data  = $model->where(function ($query) use ($param){
-                if(isset($param['create_time_range']) && !empty($param['create_time_range'])){
-                    $range = explode(' - ',$param['create_time_range']);
-                    $query->whereTime('create_time','between',$range);
-                }
-            })
+        $data  = $model->where(function ($query) use ($param) {
+            if (isset($param['create_time_range']) && !empty($param['create_time_range'])) {
+                $range = explode(' - ', $param['create_time_range']);
+                $query->whereTime('create_time', 'between', $range);
+            }
+        })
             ->scope('where', $param)
-            ->paginate($this->admin['per_page'], false, ['query'=>$request->get()]);
+            ->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
 
         //关键词，排序等赋值
         $this->assign($request->get());
 
         $this->assign([
-            'data'  => $data,
-            'page'  => $data->render(),
-            'total' => $data->total(),
+            'data'            => $data,
+            'page'            => $data->render(),
+            'total'           => $data->total(),
             'admin_user_list' => AdminUser::all(),
         ]);
 
@@ -40,11 +40,11 @@ class AdminLogController extends Controller
     }
 
     //日志详情
-    public function view($id,AdminLog $model)
+    public function view($id, AdminLog $model)
     {
         $data = $model::get($id);
         $this->assign([
-            'data'=>$data
+            'data' => $data
         ]);
         return $this->fetch();
     }

@@ -151,8 +151,7 @@ class UserController extends Controller
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
 
-
-//禁用
+    //禁用
     public function disable($id, User $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 0]);

@@ -11,7 +11,7 @@ use think\Request;
 
 class UserController extends Controller
 {
-    protected $authExcept=[
+    protected $authExcept = [
         'login'
     ];
 
@@ -20,7 +20,7 @@ class UserController extends Controller
     {
 
         $this->assign([
-            'user'=>$this->user
+            'user' => $this->user
         ]);
 
         return $this->fetch();
@@ -28,16 +28,16 @@ class UserController extends Controller
 
 
     //登录
-    public function login(Request $request,User $model)
+    public function login(Request $request, User $model)
     {
         $param = $request->param();
 
         //登录逻辑
-        if($this->request->isPost()){
+        if ($this->request->isPost()) {
 
-            try{
+            try {
                 $user = $model::login($param);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
 
                 return error($exception->getMessage());
             }

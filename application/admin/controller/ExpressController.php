@@ -17,9 +17,9 @@ class ExpressController extends Controller
     public function index(Request $request, Express $model)
     {
         $param = $request->param();
-        $model  = $model->scope('where', $param);
-        
-        $data = $model->paginate($this->admin['per_page'], false, ['query'=>$request->get()]);
+        $model = $model->scope('where', $param);
+
+        $data = $model->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
         //关键词，排序等赋值
         $this->assign($request->get());
 
@@ -40,18 +40,17 @@ class ExpressController extends Controller
             if (!$validate_result) {
                 return error($validate->getError());
             }
-            
+
             $result = $model::create($param);
 
             $url = URL_BACK;
-            if(isset($param['_create']) && $param['_create']==1){
-               $url = URL_RELOAD;
+            if (isset($param['_create']) && $param['_create'] == 1) {
+                $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功',$url) : error();
+            return $result ? success('添加成功', $url) : error();
         }
 
-        
 
         return $this->fetch();
     }
@@ -67,14 +66,14 @@ class ExpressController extends Controller
             if (!$validate_result) {
                 return error($validate->getError());
             }
-            
+
             $result = $data->save($param);
             return $result ? success() : error();
         }
 
         $this->assign([
             'data' => $data,
-            
+
         ]);
         return $this->fetch('add');
 
@@ -102,5 +101,5 @@ class ExpressController extends Controller
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
 
-    
+
 }

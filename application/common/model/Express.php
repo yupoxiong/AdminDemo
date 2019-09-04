@@ -1,7 +1,7 @@
 <?php
 /**
  * 快递模型
-*/
+ */
 
 namespace app\common\model;
 
@@ -17,13 +17,11 @@ class Express extends Model
     //可搜索字段
     protected $searchField = ['name',];
 
-    
+    //关联订单
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
-    //关联商品
-public function goods()
-{
-    return $this->hasMany(Goods::class);
-}
 
-    
 }

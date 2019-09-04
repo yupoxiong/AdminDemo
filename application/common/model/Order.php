@@ -41,7 +41,7 @@ class Order extends Model
         return date('Y-m-d H:i:s', $value);
     }
 
-//付款时间修改器
+    //付款时间修改器
     public function setPayTimeAttr($value)
     {
         return strtotime($value);
@@ -52,7 +52,7 @@ class Order extends Model
         return date('Y-m-d H:i:s', $value);
     }
 
-//发货时间修改器
+    //发货时间修改器
     public function setDeliverTimeAttr($value)
     {
         return strtotime($value);
@@ -63,7 +63,7 @@ class Order extends Model
         return date('Y-m-d H:i:s', $value);
     }
 
-//收货时间修改器
+    //收货时间修改器
     public function setReceiveTimeAttr($value)
     {
         return strtotime($value);
@@ -100,26 +100,28 @@ class Order extends Model
         return $this->hasMany(OrderGoods::class);
     }
 
-
+    //关联省
     public function province()
     {
         return $this->belongsTo(Region::class, 'province_id');
-    }//关联
+    }
 
+    //关联市
     public function city()
     {
         return $this->belongsTo(Region::class, 'city_id');
-    }//关联
+    }
 
+    //关联区县
     public function district()
     {
         return $this->belongsTo(Region::class, 'district_id');
-    }//关联
+    }
 
+    //关联街道
     public function street()
     {
         return $this->belongsTo(Region::class, 'street_id');
     }
-
 
 }

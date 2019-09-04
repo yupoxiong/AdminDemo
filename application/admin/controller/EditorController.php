@@ -15,9 +15,9 @@ class EditorController extends Controller
     //编辑器上传等url
     public function server(Request $request)
     {
-        $param = $request->param();
+        $param  = $request->param();
         $config = config('ueditor.');
-        $action  = $param['action'];
+        $action = $param['action'];
         $editor = new UEditor($config);
         return $editor->server($action);
     }

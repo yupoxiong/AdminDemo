@@ -10,13 +10,37 @@
     {css href="__ADMIN_PLUGINS__/font-awesome/css/font-awesome.min.css" /}
     {css href="__ADMIN_CSS__/AdminLTE.min.css" /}
     {css href="__ADMIN_CSS__/admin.css" /}
+
+    <!-- 如果有登录背景 -->
+    {if $login_config.background}
+    <style>
+        .login-page{
+            background-color: #ececec;
+            background-image: url({$login_config.background});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: 50% 50%;
+        }
+    </style>
+    {/if}
+
+    <script>
+        var adminDebug = {$debug};
+    </script>
+
+    {js href="__ADMIN_PLUGINS__/jquery/jquery.min.js" /}
+    {js href="__ADMIN_PLUGINS__/bootstrap/js/bootstrap.min.js" /}
+    {js href="__ADMIN_PLUGINS__/jquery-validation/jquery.validate.min.js" /}
+    {js href="__ADMIN_PLUGINS__/jquery-validation/localization/messages_zh.min.js" /}
+    {js href="__ADMIN_PLUGINS__/layer/layer.js" /}
+    {js href="__ADMIN_JS__/admin.js" /}
+
     <!--[if lt IE 9]>
     {js href="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" /}
     {js href="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" /}
     <![endif]-->
-    <script>
-        var adminDebug = {$debug};
-    </script>
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -34,6 +58,20 @@
                 <input name="password" id="password" type="password" class="form-control" placeholder="密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
+
+            {if  $login_config.token}
+            {:token()}
+            {/if}
+
+            {if  $login_config.captcha==1}
+            {include file='auth/captcha' /}
+            {else/}
+            {if  $login_config.captcha==2}
+            {include file='auth/gee_test' /}
+            {/if}
+            {/if}
+
+
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox">
@@ -44,7 +82,7 @@
                 </div>
                 <div class="col-xs-4">
                     {:token()}
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                    <button type="submit" id="loginButton" class="btn btn-primary btn-block btn-flat">登录</button>
                 </div>
             </div>
         </form>
@@ -62,12 +100,7 @@
     </div>
 </div>
 
-{js href="__ADMIN_PLUGINS__/jquery/jquery.min.js" /}
-{js href="__ADMIN_PLUGINS__/bootstrap/js/bootstrap.min.js" /}
-{js href="__ADMIN_PLUGINS__/jquery-validation/jquery.validate.min.js" /}
-{js href="__ADMIN_PLUGINS__/jquery-validation/localization/messages_zh.min.js" /}
-{js href="__ADMIN_PLUGINS__/layer/layer.js" /}
-{js href="__ADMIN_JS__/admin.js" /}
+
 <script>
 
     $(document).ready(function () {

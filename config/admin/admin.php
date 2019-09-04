@@ -18,4 +18,15 @@ return [
     'password_warning' => true,
     //首页欢迎信息
     'welcome_info'     => true,
+
+    //登录配置
+    'login'            => [
+        //开启token验证
+        'token'      => true,
+        //验证码选项：false/0不开启验证码，1ThinkPHP图形验证码，2极验点击滑动验证码
+        'captcha'    => 1,
+        //登录背景，false为不需要背景，填写背景地址则为显示
+        'background' => '/static/admin/images/background.jpg',
+
+    ]
 ];

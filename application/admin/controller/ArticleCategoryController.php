@@ -19,7 +19,7 @@ class ArticleCategoryController extends Controller
 
         $data = $this->getTreeList($model);
         $this->assign([
-            'data'  => $data,
+            'data' => $data,
 
         ]);
         return $this->fetch();
@@ -98,8 +98,6 @@ class ArticleCategoryController extends Controller
 
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
-
-
 
 
 }

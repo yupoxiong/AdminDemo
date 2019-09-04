@@ -1,7 +1,7 @@
 <?php
 /**
  * 品牌模型
-*/
+ */
 
 namespace app\common\model;
 
@@ -17,13 +17,11 @@ class Brand extends Model
     //可搜索字段
     protected $searchField = ['name',];
 
-    
 
     //关联商品
-public function goods()
-{
-    return $this->hasMany(Goods::class);
-}
+    public function goods()
+    {
+        return $this->hasMany(Goods::class);
+    }
 
-    
 }

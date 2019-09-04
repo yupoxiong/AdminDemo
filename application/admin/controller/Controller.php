@@ -61,6 +61,7 @@ class Controller extends \think\Controller
 
         //验证权限
         if (!in_array($this->url, $this->authExcept)) {
+
             if (!$this->isLogin()) {
                 error('未登录', 'auth/login');
             } else if ($this->user->id !== 1 && !$this->authCheck($this->user)) {
