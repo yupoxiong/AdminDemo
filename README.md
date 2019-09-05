@@ -5,6 +5,10 @@
 ## 线上演示地址
 [AdminDemo](https://admindemo.yupoxiong.com/)
 
+- 后台：https://admindemo.yupoxiong.com/admin
+- 账号：admin
+- 密码：admindemo
+
 ## 源代码地址
 [GitHub](https://github.com/yupoxiong/AdminDemo) |
 [Gitee](https://gitee.com/yupoxiong/AdminDemo)
@@ -58,10 +62,3 @@
 - 本 Demo 基于最新的 BearAdmin 开发，代码开发用时大约十几个小时，主要耗费时间在数据库设计，后期的优化等。如此快的开发速度是依赖于 BearAdmin 的代码自动生成功能。
 - 开发项目的时候前期数据库设计一定要尽可能的考虑周全，可有效的提高后期开发的效率，此条仅供参考。
 - 文章模块的文章与标签采用了多对多关联，有需要的可以看看。
-
-
-
-
-
-
-
