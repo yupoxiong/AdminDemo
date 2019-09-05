@@ -8,7 +8,7 @@ return [
 
     'imageActionName'         => 'uploadimage',
     'imageFieldName'          => 'upfile',
-    'imageMaxSize'            => 2048000,
+    'imageMaxSize'            => 20480,  //demo改成了20k
     'imageAllowFiles'         => [
         '.png',
         '.jpg',
@@ -24,9 +24,11 @@ return [
     'scrawlActionName'        => 'uploadscrawl',
     'scrawlFieldName'         => 'upfile',
     'scrawlPathFormat'        => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
-    'scrawlMaxSize'           => 2048000,
+    'scrawlMaxSize'           => 20480,
     'scrawlUrlPrefix'         => '',
+
     'scrawlInsertAlign'       => 'none',
+    'scrawlAllowFiles'        => ['.png', '.jpg', '.jpeg', '.gif', '.bmp',],
     'snapscreenActionName'    => 'uploadimage',
     'snapscreenPathFormat'    => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
     'snapscreenUrlPrefix'     => '',
@@ -36,7 +38,7 @@ return [
     'catcherFieldName'        => 'source',
     'catcherPathFormat'       => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
     'catcherUrlPrefix'        => '',
-    'catcherMaxSize'          => 2048000,
+    'catcherMaxSize'          => 20480,
     'catcherAllowFiles'       => [
         '.png', '.jpg', '.jpeg', '.gif', '.bmp',
     ],
@@ -44,7 +46,7 @@ return [
     'videoFieldName'          => 'upfile',
     'videoPathFormat'         => '/ueditor/php/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}',
     'videoUrlPrefix'          => '',
-    'videoMaxSize'            => 102400000,
+    'videoMaxSize'            => 40960,
     'videoAllowFiles'         => [
         '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg',
         '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid'
@@ -53,7 +55,7 @@ return [
     'fileFieldName'           => 'upfile',
     'filePathFormat'          => '/ueditor/php/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}',
     'fileUrlPrefix'           => '',
-    'fileMaxSize'             => 51200000,
+    'fileMaxSize'             => 10240,
     'fileAllowFiles'          => [
         '.png', '.jpg', '.jpeg', '.gif', '.bmp',
         '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg',

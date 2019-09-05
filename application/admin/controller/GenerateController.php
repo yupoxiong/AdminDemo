@@ -52,14 +52,13 @@ class GenerateController extends Controller
     //首页
     public function index()
     {
-        $this->admin['title'] = 'AutoCode';
         return $this->fetch();
     }
 
     //自动生成页面
     public function add()
     {
-        $this->admin['title'] = 'AutoCode';
+
 
         $this->assign([
             'table' => (new Generate())->getTable(),
@@ -185,7 +184,6 @@ class GenerateController extends Controller
     //自动生成form表单字段
     public function form()
     {
-        $this->admin['title'] = 'AutoCode';
         return $this->fetch();
     }
 

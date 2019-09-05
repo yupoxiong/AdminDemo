@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * 短信配置，主要针对EasySms
+ */
 return [
     // HTTP 请求的超时时间（秒）
     'timeout'  => 5.0,

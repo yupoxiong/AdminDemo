@@ -26,7 +26,9 @@ class Model extends \think\Model
     protected $whereField = [];
 
     //禁止删除的数据id
-    public $noDeletionId = [];
+    public $noDeletionId = [
+        1,2,3,4,5,6,7,8
+    ];
 
     /**
      * 查询处理

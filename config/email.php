@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * 邮件配置
+ */
 return [
     'smtp'=>[
         //host
