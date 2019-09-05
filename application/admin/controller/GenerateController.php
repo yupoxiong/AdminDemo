@@ -202,7 +202,10 @@ class GenerateController extends Controller
 
             if ($param['form_type'] === 'switch') {
                 $param['form_type'] = 'switch_field';
+
             }
+
+            $param['field_default'] = '';
 
             $class_name = parse_name($param['form_type'], 1);
 
