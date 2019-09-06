@@ -18,6 +18,7 @@ class AuthController extends Controller
 
     protected $authExcept = [
         'admin/auth/login',
+        'admin/auth/logout',
         'admin/auth/captcha',
         'admin/auth/initgeetest',
 
@@ -31,16 +32,6 @@ class AuthController extends Controller
             $login_config = config('admin.login');
 
             $param = $request->param();
-
-            //如果需要验证登录token
-            if ($login_config['token']) {
-                $token_validate        = \think\Validate::make();
-                $token_validate_result = $token_validate->rule('__token__', 'token')
-                    ->check($param);
-                if (!$token_validate_result) {
-                    return error($token_validate->getError());
-                }
-            }
 
             //如果需要验证码
             if ($login_config['captcha'] > 0) {
@@ -75,6 +66,16 @@ class AuthController extends Controller
             $validate_result = $validate->scene('login')->check($param);
             if (!$validate_result) {
                 return error($validate->getError());
+            }
+
+            //如果需要验证登录token
+            if ($login_config['token']) {
+                $token_validate        = \think\Validate::make();
+                $token_validate_result = $token_validate->rule('__token__', 'token')
+                    ->check($param);
+                if (!$token_validate_result) {
+                    return error($token_validate->getError());
+                }
             }
 
             try {
