@@ -284,11 +284,11 @@ class Generate
             // 字段
             $fields[] = " `{$item['field_name']}` {$item['field_type']}"
                 . ($item['not_null'] ? ' NOT NULL' : ' ')
-                . (strtolower($item['default']) == 'null' ? '' : " DEFAULT '{$item['default']}'")
+                . (strtolower($item['default']) === 'null' ? '' : " DEFAULT '{$item['default']}'")
                 . ($item['comment'] === '' ? '' : " COMMENT '{$item['comment']}'");
 
             // 索引
-            if (isset($item['key']) && $item['key'] && $item['name'] != 'id') {
+            if (isset($item['key']) && $item['key'] && $item['name'] !== 'id') {
                 $indexes[] = " KEY `{$item['name']}` (`{$item['name']}`)";
             }
         }

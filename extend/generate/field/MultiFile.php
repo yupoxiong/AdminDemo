@@ -28,7 +28,7 @@ class MultiFile extends Field
         showRemove: false,
         allowedFileExtensions: ['jpg', 'png', 'gif','bmp','svg','jpeg','mp4','doc','docx','pdf','xls','xlsx','ppt','pptx','txt'],
         {if isset(\$data)}
-        initialPreview:['<img style="max-width:100%;" src="{\$data.[FIELD_NAME]}">'],
+        initialPreview:{\$data->getData('[FIELD_NAME]')|raw},
         {/if}
         //默认限制10M
         maxFileSize:10240

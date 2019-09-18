@@ -271,7 +271,7 @@ EOF;
     public static function createHtmlRule($rule)
     {
         $html = '';
-        if (key_exists($rule, self::$rules)) {
+        if (array_key_exists($rule, self::$rules)) {
             $html .= '';
         }
     }

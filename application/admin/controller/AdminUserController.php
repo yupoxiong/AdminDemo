@@ -133,6 +133,7 @@ class AdminUserController extends Controller
     public function profile(Request $request, AdminUser $model, AdminUserValidate $validate)
     {
         if ($request->isPost()) {
+            return error('演示项目无法修改资料');
             $param = $request->param();
             if ($param['update_type'] === 'password') {
 
