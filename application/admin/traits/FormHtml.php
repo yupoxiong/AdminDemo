@@ -35,7 +35,7 @@ EOF;
 EOF;
 
 
-    public static $dateHtml = <<<EOF
+    public $dateHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -50,7 +50,7 @@ EOF;
 EOF;
 
 
-    public static $dateRangeHtml = <<<EOF
+    public $dateRangeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -66,7 +66,7 @@ EOF;
 EOF;
 
 
-    public static $datatimeHtml = <<<EOF
+    public $datatimeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -82,7 +82,7 @@ EOF;
 EOF;
 
 
-    public static $datetimeRangeHtml = <<<EOF
+    public $datetimeRangeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -99,7 +99,7 @@ EOF;
 EOF;
 
 
-    public static $EditorHtml = <<<EOF
+    public $EditorHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
         <div class="col-sm-10">
@@ -115,7 +115,7 @@ EOF;
 EOF;
 
 
-    public static $emailhtml = <<<EOF
+    public $emailhtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -125,7 +125,7 @@ EOF;
 EOF;
 
 
-    public static $fileHtml = <<<EOF
+    public $fileHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4"> 
@@ -147,7 +147,7 @@ EOF;
 EOF;
 
 
-    public static $iconHtml = <<<EOF
+    public $iconHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -165,7 +165,7 @@ EOF;
 EOF;
 
 
-    public static $idCardHtml = <<<EOF
+    public $idCardHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -174,11 +174,11 @@ EOF;
 </div>\n
 EOF;
 
-    public static $iamgeHtml = <<<EOF
+    public $imageHtml = <<<EOF
     <div class="form-group">
         <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
         <div class="col-sm-10 col-md-4"> 
-            <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" type="file" class="form-control field-image" >
+            <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="[FIELD_CONTENT]" type="file" class="form-control field-image" >
         </div>
     </div>
     <script>
@@ -197,7 +197,7 @@ EOF;
 EOF;
 
 
-    public static $ipHtml = <<<EOF
+    public $ipHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -207,7 +207,7 @@ EOF;
 EOF;
 
 
-    public static $ampHtml = <<<EOF
+    public $ampHtml = <<<EOF
     
 <div class="form-group">
     <label class="col-sm-2 control-label">[FORM_NAME]</label>
@@ -253,7 +253,7 @@ EOF;
 EOF;
 
 
-    public static $mobileHtml = <<<EOF
+    public $mobileHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -263,7 +263,7 @@ EOF;
 EOF;
 
 
-    public static $multiFileHtml = <<<EOF
+    public $multiFileHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-8"> 
@@ -292,7 +292,7 @@ EOF;
 EOF;
 
 
-    public static $multiImageHtml = <<<EOF
+    public $multiImageHtml = <<<EOF
 
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
@@ -324,7 +324,7 @@ $(function() {
 EOF;
 
 
-    public static $multiSelectHtml = <<<EOF
+    public $multiSelectHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -340,7 +340,7 @@ EOF;
 EOF;
 
 
-    public static $numberHtml = <<<EOF
+    public $numberHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -360,7 +360,7 @@ EOF;
 EOF;
 
 
-    public static $passwordHtml = <<<EOF
+    public $passwordHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -369,7 +369,7 @@ EOF;
 </div>\n
 EOF;
 
-    public static $radioHtml = <<<EOF
+    public $radioHtml = <<<EOF
 <div class="radio">
     <label>
         <input type="radio" name="[FIELD_NAME]" value="" checked="">
@@ -379,13 +379,13 @@ EOF;
 EOF;
 
 
-    public static $selectHtml = <<<EOF
+    public $selectHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
         <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control field-select" data-placeholder="请选择[FORM_NAME]">
             <option value=""></option>
-            [RELATION_DATA]
+            [OPTION_DATA]
         </select>
     </div>
 </div>
@@ -395,11 +395,11 @@ EOF;
 EOF;
 
 
-    public static $switchHtml = <<<EOF
+    public $switchHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
-    <input class="input-switch"  id="[FIELD_NAME]" value="1" {if(!isset(\$data) ||\$data.[FIELD_NAME]==1)}checked{/if} type="checkbox" />
+    <input class="input-switch"  id="[FIELD_NAME]" value="1" [SWITCH_CHECKED] type="checkbox" />
     <input class="switch field-switch" placeholder="[FORM_NAME]" name="[FIELD_NAME]" value="[FIELD_CONTENT]" hidden />
     </div>
 </div>\n
@@ -417,7 +417,7 @@ EOF;
 EOF;
 
 
-    public static $textHtml = <<<EOF
+    public $textHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -427,7 +427,7 @@ EOF;
 EOF;
 
 
-    public static $textareaHtml = <<<EOF
+    public $textareaHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -437,7 +437,7 @@ EOF;
 EOF;
 
 
-    public static $timeHtml = <<<EOF
+    public $timeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -453,7 +453,7 @@ EOF;
 EOF;
 
 
-    public static $timeRangeHtml = <<<EOF
+    public $timeRangeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -470,7 +470,7 @@ EOF;
 EOF;
 
 
-    public static $urlHtml = <<<EOF
+    public $urlHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -480,7 +480,7 @@ EOF;
 EOF;
 
 
-    public static $yearHtml = <<<EOF
+    public $yearHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -496,7 +496,7 @@ EOF;
 EOF;
 
 
-    public static $yearMonthHtml = <<<EOF
+    public $yearMonthHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -512,8 +512,7 @@ EOF;
 EOF;
 
 
-
-    public static $yearMonthRangeHtml = <<<EOF
+    public $yearMonthRangeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -530,7 +529,7 @@ EOF;
 EOF;
 
 
-    public static $yearRangeHtml = <<<EOF
+    public $yearRangeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -547,22 +546,43 @@ EOF;
 EOF;
 
 
-    protected function getFieldForm($type, $name, $field, $value)
+    protected function getFieldForm($type, $name, $field, $content, $option)
     {
-        $form = '';
-        switch ($type) {
-            case 'text':
 
-                $form = '';
+        $html_var = parse_name($type, 1, 0) . 'Html';
+
+
+        $form = $this->$html_var;
+        switch ($type) {
+            case 'switch':
+                $form  = str_replace(array('[ON_TEXT]', '[OFF_TEXT]', '[SWITCH_CHECKED]'), array('是', '否', $content ? 'checked' : ''), $form);
+
+
                 break;
 
+            case 'select':
+
+                $option_html = '';
+                $option      = explode("\r\n", $option);
+                foreach ($option as $item) {
+                    $option_key_value = explode('||', $item);
+
+                    $select='';
+                    if ($content == $option_key_value[0]) {
+                        $select = 'selected';
+                    }
+                    $option_html .= '<option value="' . $option_key_value[0] . '" ' . $select . '>' . $option_key_value[1] . '</option>';
+                }
+
+                $form = str_replace('[OPTION_DATA]', $option_html, $form);
+                break;
             default:
-                $form = '';
+                //$form = '';
 
                 break;
         }
 
-
+        $form = str_replace(array('[FIELD_NAME]', '[FORM_NAME]', '[FIELD_CONTENT]'), array($field, $name, $content), $form);
         return $form;
     }
 

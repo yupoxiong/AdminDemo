@@ -52,15 +52,15 @@
                     {/foreach}
 
                 </div>
-                <!-- /.tab-content -->
             </div>
-            <!-- nav-tabs-custom -->
         </div>
     </div>
 </section>
 
 <script>
-    $('.dataForm').validate({});
+    $.each($('.dataForm'),function (index,item) {
+        $(item).validate({});
+    })
 </script>
 
 {/block}

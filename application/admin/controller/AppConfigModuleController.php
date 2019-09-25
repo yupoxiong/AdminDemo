@@ -79,6 +79,55 @@ class AppConfigModuleController extends Controller
 
     }
 
+
+    //生成配置文件，配置文件名为模块名
+    public function file($id,  AppConfigModule $model)
+    {
+        $data = $model::get($id);
+
+        $app_config = $data->appConfig;
+
+        $file_name = $data->code.'.test.php';
+        $all_file_name = app()->getConfigPath().$file_name;
+
+        $is_have = file_exists($all_file_name);
+        if($is_have){
+
+            //当前有该文件，会导致覆盖
+            //dump($is_have);
+        }
+
+        $config_array = [];
+
+
+        $codes = "<?php\n/**\n* ".$data->name.'配置文件'."\n*/\nreturn [\n";
+
+        foreach ($app_config as $key=>$value){
+
+            $codes.="\n    //".$value['name']."\n    '".$value['code']."'=>[";
+            $content_data = [];
+            foreach ($value->content as $content){
+                $codes.="\n    //".$content['name']."\n    '".$content['field']."'=>'".$content['content']."',";
+                $content_data[$content['field']] =$content['content'];
+            }
+
+            $codes.="\n],";
+            $config_array[$value['code']]=$content_data;
+        }
+        $codes.="\n];";
+        dump($codes);
+
+        $code = var_export($config_array,true);
+        $code = str_replace(array("array (\n", "),\n", "\n)"), array("[\n", "],\n", "\n]"), $code);
+
+        $code =  $content="<?php\r\n//".$data->name.'配置文件'."\r\nreturn ".$code.';';
+        $result = file_put_contents($all_file_name,$code);
+
+        //return $result ? success('生成成功',URL_RELOAD) : error('生成失败');
+
+    }
+
+
     //删除
     public function del($id, AppConfigModule $model)
     {
@@ -92,6 +141,24 @@ class AppConfigModuleController extends Controller
             }
         }
 
+        //删除限制
+        $relation_name    = 'appConfig';
+        $relation_cn_name = '应用设置';
+        $tips             = '下有' . $relation_cn_name . '数据，请删除' . $relation_cn_name . '数据后再进行删除操作';
+        if (is_array($id)) {
+            foreach ($id as $item) {
+                $data = $model::get($item);
+                if ($data->$relation_name->count() > 0) {
+                    return error($data->name . $tips);
+                }
+            }
+        } else {
+            $data = $model::get($id);
+            if ($data->$relation_name->count() > 0) {
+                return error($data->name . $tips);
+            }
+        }
+
         if ($model->softDelete) {
             $result = $model->whereIn('id', $id)->useSoftDelete('delete_time', time())->delete();
         } else {
@@ -101,5 +168,13 @@ class AppConfigModuleController extends Controller
         return $result ? success('操作成功', URL_RELOAD) : error();
     }
 
+
+    protected function strReplaceFirst($search, $replace, $subject) {
+        $pos = strpos($subject, $search);
+        if ($pos !== false) {
+            return substr_replace($subject, $replace, $pos, strlen($search));
+        }
+        return $subject;
+    }
 
 }

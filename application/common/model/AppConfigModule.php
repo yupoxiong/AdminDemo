@@ -1,7 +1,7 @@
 <?php
 /**
  * 应用设置模块模型
-*/
+ */
 
 namespace app\common\model;
 
@@ -17,13 +17,14 @@ class AppConfigModule extends Model
     //可搜索字段
     protected $searchField = ['name',];
 
-    
+    //保护前5个不被删除
+    public $noDeletionId = [1,2,3,4,5];
 
     //关联应用设置
-public function appConfig()
-{
-    return $this->hasMany(AppConfig::class);
-}
+    public function appConfig()
+    {
+        return $this->hasMany(AppConfig::class);
+    }
 
-    
+
 }

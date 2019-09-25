@@ -8,9 +8,13 @@ namespace app\admin\controller;
 
 use app\common\model\AppConfig;
 
+use app\admin\traits\FormHtml;
+use think\Request;
+
 class SettingController extends Controller
 {
 
+    use FormHtml;
 
 
     //设置展示页面
@@ -37,27 +41,7 @@ class SettingController extends Controller
 
             foreach ($value->content as $kk => $content) {
 
-                $form_data = [
-                    'form_type'     => $content['type'],
-                    'form_name'     => $content['name'],
-                    'field_name'    => $content['field'],
-                    'field_default' => $content['content'],
-                ];
-
-                if($form_data['form_type']==='switch'){
-                    $form_data['form_type'] = 'switch_field';
-                }
-
-                if($form_data['form_type']==='select'){
-                    $form_data['relation_data']='';
-                }
-
-
-                //$arr = explode("\r\n",$item['option']);
-
-                $class_name      = parse_name($form_data['form_type'], 1);
-                $class           = '\\generate\\field\\' . $class_name;
-                $content['form'] = $class::create($form_data);
+                $content['form'] = $this->getFieldForm($content['type'], $content['name'], $content['field'], $content['content'], $content['option']);
 
                 $content_new[] = $content;
             }
@@ -75,12 +59,57 @@ class SettingController extends Controller
 
 
     //更新设置
-    public function update()
+    public function update(Request $request, AppConfig $model)
     {
+        $param = $request->param();
 
-        return error();
+        $id = $param['id'];
+
+        $config = $model::get($id);
+
+        $content_data = [];
+        foreach ($config->content as $key => $value) {
+
+            switch ($value['type']) {
+                case 'image' :
+                case 'file':
+
+                    //处理图片上传
+                    if (!empty($_FILES[$value['field']]['name'])) {
+                        $attachment = new \app\common\model\Attachment;
+                        $file       = $attachment->upload($value['field']);
+                        if ($file) {
+                            $value['content'] = $param[$value['field']] = $file->url;
+                        }
+                    }
+                    break;
+
+                case 'multi_file':
+                case 'multi_image':
+
+                    if (!empty($_FILES[$value['field']]['name'])) {
+                        $attachment = new \app\common\model\Attachment;
+                        $file       = $attachment->uploadMulti($value['field']);
+                        if ($file) {
+                            $value['content'] = $param[$value['field']] = json_encode($file);
+                        }
+                    }
+                    break;
+
+                default:
+                    $value['content'] = $param[$value['field']];
+                    break;
+            }
+
+            $content_data[] = $value;
+        }
+
+        $config->content = $content_data;
+        $result          = $config->save();
+
+        return $result ? success('修改成功', URL_RELOAD) : error();
+
     }
-
 
 
 }

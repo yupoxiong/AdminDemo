@@ -122,6 +122,9 @@ $.validator.setDefaults({
     errorElement: "span",
     errorClass: "help-block error",
     submitHandler: function (form) {
+        if (adminDebug) {
+            console.log(form);
+        }
         formSubmit(form);
         return false;
     }
