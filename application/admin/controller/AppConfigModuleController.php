@@ -88,42 +88,29 @@ class AppConfigModuleController extends Controller
         $app_config = $data->appConfig;
 
         $file_name = $data->code.'.test.php';
+
         $all_file_name = app()->getConfigPath().$file_name;
 
+        $is_warning = cache('app_config_'.$data->code);
+
         $is_have = file_exists($all_file_name);
-        if($is_have){
+        if(!$is_warning && $is_have){
 
-            //当前有该文件，会导致覆盖
-            //dump($is_have);
+            cache('app_config_'.$data->code,'1',5);
+            return error('当前配置文件已存在，如果确认要生成请在5秒内再次点击生成按钮');
         }
 
-        $config_array = [];
-
-
-        $codes = "<?php\n/**\n* ".$data->name.'配置文件'."\n*/\nreturn [\n";
-
+        $codes = "<?php\r\n\r\n/**\r\n* ".$data->name."\r\n* 此配置文件为自动生成，生成时间".date('Y-m-d H:i:s')."\r\n*/\r\n\r\nreturn [";
         foreach ($app_config as $key=>$value){
-
-            $codes.="\n    //".$value['name']."\n    '".$value['code']."'=>[";
-            $content_data = [];
+            $codes.="\r\n    //".$value['name']."\r\n    '".$value['code']."'=>[";
             foreach ($value->content as $content){
-                $codes.="\n    //".$content['name']."\n    '".$content['field']."'=>'".$content['content']."',";
-                $content_data[$content['field']] =$content['content'];
+                $codes.="\r\n    //".$content['name']."\r\n    '".$content['field']."'=>'".$content['content']."',";
             }
-
-            $codes.="\n],";
-            $config_array[$value['code']]=$content_data;
+            $codes.="\r\n],";
         }
-        $codes.="\n];";
-        dump($codes);
-
-        $code = var_export($config_array,true);
-        $code = str_replace(array("array (\n", "),\n", "\n)"), array("[\n", "],\n", "\n]"), $code);
-
-        $code =  $content="<?php\r\n//".$data->name.'配置文件'."\r\nreturn ".$code.';';
-        $result = file_put_contents($all_file_name,$code);
-
-        //return $result ? success('生成成功',URL_RELOAD) : error('生成失败');
+        $codes.="\r\n];";
+        $result = file_put_contents($all_file_name,$codes);
+        return $result ? success('生成成功',URL_RELOAD) : error('生成失败');
 
     }
 

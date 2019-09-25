@@ -1,11 +1,13 @@
 <?php
-/**
- * 后台设置配置文件
- */
-return [
 
+/**
+ * 后台设置
+ * 此配置文件为自动生成，生成时间2019-09-25 20:08:12
+ */
+
+return [
     //基本设置
-    'admin_base'  => [
+    'base'  => [
         //后台名称
         'name'       => 'Backend Dashboard',
         //后台短名称
@@ -14,7 +16,7 @@ return [
         'author'     => 'The XX LTD',
     ],
     //登录设置
-    'admin_login' => [
+    'login' => [
         //token验证
         'token'      => '1',
         //验证码
