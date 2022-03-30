@@ -2,6 +2,8 @@
 > BearAdmin（基于ThinkPHP5.1版本）的Demo项目。
 
 
+**⚠️⚠️⚠️注意：此Demo已经不再维护，请关注 [最新版本](https://github.com/yupoxiong/BearAdmin) 相关文档**
+
 ## 线上演示地址
 [AdminDemo](https://admindemo.yupoxiong.com/)
 
